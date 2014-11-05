@@ -82,6 +82,7 @@ class SCLAlertView: UIViewController {
 	let kButtonFont = "HelveticaNeue-Bold"
 	
     // Members declaration
+    var baseView = UIView();
     var labelTitle = UILabel()
     var viewText = UITextView()
     var contentView = UIView()
@@ -102,7 +103,10 @@ class SCLAlertView: UIViewController {
 		view.frame = UIScreen.mainScreen().bounds
 		view.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
 		view.backgroundColor = UIColor(red:0, green:0, blue:0, alpha:kDefaultShadowOpacity)
-		view.addSubview(contentView)
+        view.addSubview(baseView)
+        // Base View
+        baseView.frame = view.frame;
+        baseView.addSubview(contentView)
 		// Content View
         contentView.backgroundColor = UIColor(white:1, alpha:1)
         contentView.layer.cornerRadius = 5
@@ -113,7 +117,7 @@ class SCLAlertView: UIViewController {
 		// Circle View
 		circleBG.backgroundColor = UIColor.whiteColor()
 		circleBG.layer.cornerRadius = circleBG.frame.size.height / 2
-		view.addSubview(circleBG)
+		baseView.addSubview(circleBG)
 		circleBG.addSubview(circleView)
 		circleView.addSubview(circleIconImageView)
 		var x = (kCircleHeightBackground - kCircleHeight) / 2
@@ -289,6 +293,7 @@ class SCLAlertView: UIViewController {
 		let rv = UIApplication.sharedApplication().keyWindow?.subviews.first as UIView
 		rv.addSubview(view)
 		view.frame = rv.bounds
+        baseView.frame = rv.bounds
 		
         // Alert colour/icon
         var viewColor = UIColor()
@@ -365,12 +370,15 @@ class SCLAlertView: UIViewController {
         }
         
         // Animate in the alert view
+        self.baseView.frame.origin.y = rv.center.y - 400
         UIView.animateWithDuration(0.2, animations: {
-				self.view.frame.origin.y = rv.center.y - 100
+            println(rv.center.y)
+            self.baseView.frame.origin.y = rv.center.y - 250
 				self.view.alpha = 1
             }, completion: { finished in
                 UIView.animateWithDuration(0.2, animations: {
-                    self.view.center = rv.center
+                    println(self.baseView.frame.origin.y)
+                    self.baseView.center = rv.center
 				})
         })
         // Chainable objects
