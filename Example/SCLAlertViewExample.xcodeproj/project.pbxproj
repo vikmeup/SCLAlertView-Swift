@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		25BD13D61A0A069500B995BC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25BD13D51A0A069500B995BC /* LaunchScreen.xib */; };
 		CEABB2471942AD9700FCB13C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABB2461942AD9700FCB13C /* AppDelegate.swift */; };
 		CEABB2501942AD9700FCB13C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEABB24F1942AD9700FCB13C /* Images.xcassets */; };
 		CEABB25C1942AD9700FCB13C /* SCLAlertViewExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABB25B1942AD9700FCB13C /* SCLAlertViewExampleTests.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		25BD13D51A0A069500B995BC /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		CEABB2411942AD9700FCB13C /* SCLAlertViewExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SCLAlertViewExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEABB2451942AD9700FCB13C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEABB2461942AD9700FCB13C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				CEB569961942AE47009959CC /* Main.storyboard */,
 				CEABB2461942AD9700FCB13C /* AppDelegate.swift */,
 				CEABB2661942AEA500FCB13C /* ViewController.swift */,
+				25BD13D51A0A069500B995BC /* LaunchScreen.xib */,
 			);
 			path = SCLAlertViewExample;
 			sourceTree = "<group>";
@@ -201,6 +204,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEB569971942AE47009959CC /* Main.storyboard in Resources */,
+				25BD13D61A0A069500B995BC /* LaunchScreen.xib in Resources */,
 				CEABB2501942AD9700FCB13C /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
