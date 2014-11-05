@@ -370,14 +370,12 @@ class SCLAlertView: UIViewController {
         }
         
         // Animate in the alert view
-        self.baseView.frame.origin.y = rv.center.y - 400
+        self.baseView.frame.origin.y = -400
         UIView.animateWithDuration(0.2, animations: {
-            println(rv.center.y)
-            self.baseView.frame.origin.y = rv.center.y - 250
+            self.baseView.center.y = rv.center.y + 15
 				self.view.alpha = 1
             }, completion: { finished in
                 UIView.animateWithDuration(0.2, animations: {
-                    println(self.baseView.frame.origin.y)
                     self.baseView.center = rv.center
 				})
         })
