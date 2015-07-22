@@ -11,7 +11,7 @@ import UIKit
 
 // Pop Up Styles
 public enum SCLAlertViewStyle {
-    case Success, Error, Notice, Warning, Info, Edit
+    case Success, Error, Notice, Warning, Info, Edit, Custom
 }
 
 // Action Types
@@ -73,7 +73,7 @@ public class SCLAlertView: UIViewController {
     let kCircleIconHeight: CGFloat = 20.0
     let kTitleTop:CGFloat = 24.0
     let kTitleHeight:CGFloat = 40.0
-    let kWindowWidth: CGFloat = 240.0
+    let kWindowWidth: CGFloat = 295.0
     var kWindowHeight: CGFloat = 178.0
     var kTextHeight: CGFloat = 90.0
 
@@ -223,6 +223,7 @@ public class SCLAlertView: UIViewController {
         let btn = addButton(title)
         btn.actionType = SCLActionType.Closure
         btn.action = action
+		btn.target = self
         btn.addTarget(self, action:Selector("buttonTapped:"), forControlEvents:.TouchUpInside)
         btn.addTarget(self, action:Selector("buttonTapDown:"), forControlEvents:.TouchDown | .TouchDragEnter)
         btn.addTarget(self, action:Selector("buttonRelease:"), forControlEvents:.TouchUpInside | .TouchUpOutside | .TouchCancel | .TouchDragOutside )
@@ -287,40 +288,45 @@ public class SCLAlertView: UIViewController {
 
     // showSuccess(view, title, subTitle)
     public func showSuccess(title: String, subTitle: String, closeButtonTitle:String?=nil, duration:NSTimeInterval=0.0) -> SCLAlertViewResponder {
-        return showTitle(title, subTitle: subTitle, duration: duration, completeText:closeButtonTitle, style: .Success)
+        return showTitle(title, subTitle: subTitle, duration: duration, completeText:closeButtonTitle, style: .Success, icon: nil)
     }
 
     // showError(view, title, subTitle)
     public func showError(title: String, subTitle: String, closeButtonTitle:String?=nil, duration:NSTimeInterval=0.0) -> SCLAlertViewResponder {
-        return showTitle(title, subTitle: subTitle, duration: duration, completeText:closeButtonTitle, style: .Error)
+        return showTitle(title, subTitle: subTitle, duration: duration, completeText:closeButtonTitle, style: .Error, icon: nil)
     }
 
     // showNotice(view, title, subTitle)
     public func showNotice(title: String, subTitle: String, closeButtonTitle:String?=nil, duration:NSTimeInterval=0.0) -> SCLAlertViewResponder {
-        return showTitle(title, subTitle: subTitle, duration: duration, completeText:closeButtonTitle, style: .Notice)
+        return showTitle(title, subTitle: subTitle, duration: duration, completeText:closeButtonTitle, style: .Notice, icon: nil)
     }
 
     // showWarning(view, title, subTitle)
     public func showWarning(title: String, subTitle: String, closeButtonTitle:String?=nil, duration:NSTimeInterval=0.0) -> SCLAlertViewResponder {
-        return showTitle(title, subTitle: subTitle, duration: duration, completeText:closeButtonTitle, style: .Warning)
+        return showTitle(title, subTitle: subTitle, duration: duration, completeText:closeButtonTitle, style: .Warning, icon: nil)
+    }
+    
+    // showCustom(view, title, subTitle, icon)
+    public func showCustom(title: String, subTitle: String, icon:UIImage, closeButtonTitle:String?=nil, duration:NSTimeInterval=0.0) -> SCLAlertViewResponder {
+        return showTitle(title, subTitle: subTitle, duration: duration, completeText:closeButtonTitle, style: .Custom, icon: icon)
     }
 
     // showInfo(view, title, subTitle)
     public func showInfo(title: String, subTitle: String, closeButtonTitle:String?=nil, duration:NSTimeInterval=0.0) -> SCLAlertViewResponder {
-        return showTitle(title, subTitle: subTitle, duration: duration, completeText:closeButtonTitle, style: .Info)
+        return showTitle(title, subTitle: subTitle, duration: duration, completeText:closeButtonTitle, style: .Info, icon: nil)
     }
 
     public func showEdit(title: String, subTitle: String, closeButtonTitle:String?=nil, duration:NSTimeInterval=0.0) -> SCLAlertViewResponder {
-        return showTitle(title, subTitle: subTitle, duration: duration, completeText:closeButtonTitle, style: .Edit)
+        return showTitle(title, subTitle: subTitle, duration: duration, completeText:closeButtonTitle, style: .Edit, icon: nil)
     }
 
     // showTitle(view, title, subTitle, style)
     public func showTitle(title: String, subTitle: String, style: SCLAlertViewStyle, closeButtonTitle:String?=nil, duration:NSTimeInterval=0.0) -> SCLAlertViewResponder {
-        return showTitle(title, subTitle: subTitle, duration:duration, completeText:closeButtonTitle, style: style)
+        return showTitle(title, subTitle: subTitle, duration:duration, completeText:closeButtonTitle, style: style, icon: nil)
     }
 
     // showTitle(view, title, subTitle, duration, style)
-    public func showTitle(title: String, subTitle: String, duration: NSTimeInterval?, completeText: String?, style: SCLAlertViewStyle) -> SCLAlertViewResponder {
+    public func showTitle(title: String, subTitle: String, duration: NSTimeInterval?, completeText: String?, style: SCLAlertViewStyle, icon: UIImage?) -> SCLAlertViewResponder {
         view.alpha = 0
         let rv = UIApplication.sharedApplication().keyWindow?.subviews.first as! UIView
         rv.addSubview(view)
@@ -356,6 +362,10 @@ public class SCLAlertView: UIViewController {
         case .Edit:
             viewColor = UIColorFromRGB(0xA429FF)
             iconImage = SCLAlertViewStyleKit.imageOfEdit
+        case .Custom:
+            viewColor = UIColor(red:0.28, green:0.51, blue:0.67, alpha:1)
+            iconImage = icon!
+			self.circleIconImageView.frame = CGRect(x:circleIconImageView.frame.origin.x - 20.7, y:circleIconImageView.frame.origin.y - 20.5, width:kCircleHeightBackground, height:kCircleHeightBackground)
         }
 
         // Title
@@ -379,8 +389,9 @@ public class SCLAlertView: UIViewController {
         }
 
         // Done button
-        let txt = completeText != nil ? completeText! : "Done"
-        addButton(txt, target:self, selector:Selector("hideView"))
+		if completeText != nil {
+			addButton(completeText!, target:self, selector:Selector("hideView"))
+		}
 
         // Alert view colour and images
         self.circleView.backgroundColor = viewColor
