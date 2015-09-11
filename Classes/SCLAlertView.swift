@@ -335,7 +335,7 @@ public class SCLAlertView: UIViewController {
 		SCLAlertView.currentAlertView = self
 		
 		view.alpha = 0
-        let rv = UIApplication.sharedApplication().keyWindow?.subviews.first as! UIView
+        let rv = UIApplication.sharedApplication().keyWindow?.subviews.last as! UIView
         rv.addSubview(view)
 		rv.bringSubviewToFront(view)
         view.frame = rv.bounds
