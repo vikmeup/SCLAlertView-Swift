@@ -66,6 +66,9 @@ let kCircleHeightBackground: CGFloat = 62.0
 
 // The Main Class
 public class SCLAlertView: UIViewController {
+	
+	static var currentAlertView:SCLAlertView?
+	
     let kDefaultShadowOpacity: CGFloat = 0.7
     let kCircleTopPosition: CGFloat = -12.0
     let kCircleBackgroundTopPosition: CGFloat = -15.0
@@ -327,9 +330,14 @@ public class SCLAlertView: UIViewController {
 
     // showTitle(view, title, subTitle, duration, style)
     public func showTitle(title: String, subTitle: String, duration: NSTimeInterval?, completeText: String?, style: SCLAlertViewStyle, icon: UIImage?) -> SCLAlertViewResponder {
-        view.alpha = 0
-        let rv = UIApplication.sharedApplication().keyWindow?.subviews.first as! UIView
+
+		SCLAlertView.currentAlertView?.view.removeFromSuperview()
+		SCLAlertView.currentAlertView = self
+		
+		view.alpha = 0
+        let rv = UIApplication.sharedApplication().keyWindow?.subviews.last as! UIView
         rv.addSubview(view)
+		rv.bringSubviewToFront(view)
         view.frame = rv.bounds
         baseView.frame = rv.bounds
 
@@ -432,6 +440,7 @@ public class SCLAlertView: UIViewController {
             self.view.alpha = 0
             }, completion: { finished in
                 self.view.removeFromSuperview()
+				SCLAlertView.currentAlertView = nil
         })
     }
 
