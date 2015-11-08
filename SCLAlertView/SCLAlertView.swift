@@ -48,7 +48,7 @@ public class SCLAlertViewResponder {
     public init(alertview: SCLAlertView) {
         self.alertview = alertview
     }
-    
+       
     public func setTitle(title: String) {
         self.alertview.labelTitle.text = title
     }
@@ -85,10 +85,6 @@ public class SCLAlertView: UIViewController {
     let kTextFieldHeight: CGFloat = 45.0
     let kButtonHeight: CGFloat = 45.0
     
-    // Font
-    let kDefaultFont = "HelveticaNeue"
-    let kButtonFont = "HelveticaNeue-Bold"
-    
     // UI Colour
     var viewColor = UIColor()
     var pressBrightnessFactor = 0.85
@@ -100,10 +96,17 @@ public class SCLAlertView: UIViewController {
     public var fieldCornerRadius : CGFloat = 3.0
     public var buttonCornerRadius : CGFloat = 3.0
     
+    // Font
+    let titleFont = UIFont(name:"HelveticaNeue-Bold", size: 20)
+    let bodyFont = UIFont(name:"HelveticaNeue", size: 14)
+    public var buttonFont =  UIFont(name:"HelveticaNeue-Bold", size: 14)
+    
+
+    
     // Members declaration
+    public var labelTitle = UILabel()
+    public var viewText = UITextView()
     var baseView = UIView()
-    var labelTitle = UILabel()
-    var viewText = UITextView()
     var contentView = UIView()
     var circleBG = UIView(frame:CGRect(x:0, y:0, width:kCircleHeightBackground, height:kCircleHeightBackground))
     var circleView = UIView()
@@ -146,14 +149,14 @@ public class SCLAlertView: UIViewController {
         // Title
         labelTitle.numberOfLines = 1
         labelTitle.textAlignment = .Center
-        labelTitle.font = UIFont(name: kDefaultFont, size:20)
+        labelTitle.font = titleFont
         labelTitle.frame = CGRect(x:12, y:kTitleTop, width: kWindowWidth - 24, height:kTitleHeight)
         // View text
         viewText.editable = false
         viewText.textAlignment = .Center
         viewText.textContainerInset = UIEdgeInsetsZero
         viewText.textContainer.lineFragmentPadding = 0;
-        viewText.font = UIFont(name: kDefaultFont, size:14)
+        viewText.font = bodyFont
         // Colours
         contentView.backgroundColor = UIColorFromRGB(0xFFFFFF)
         labelTitle.textColor = UIColorFromRGB(0x4D4D4D)
@@ -247,13 +250,15 @@ public class SCLAlertView: UIViewController {
         }
     }
     
+    
+    
     public func addTextField(title:String?=nil)->UITextField {
         // Update view height
         kWindowHeight += kTextFieldHeight
         // Add text field
         let txt = UITextField()
         txt.borderStyle = UITextBorderStyle.RoundedRect
-        txt.font = UIFont(name:kDefaultFont, size: 14)
+        txt.font = bodyFont
         txt.autocapitalizationType = UITextAutocapitalizationType.Words
         txt.clearButtonMode = UITextFieldViewMode.WhileEditing
         txt.layer.masksToBounds = true
@@ -294,7 +299,7 @@ public class SCLAlertView: UIViewController {
         let btn = SCLButton()
         btn.layer.masksToBounds = true
         btn.setTitle(title, forState: .Normal)
-        btn.titleLabel?.font = UIFont(name:kButtonFont, size: 14)
+        btn.titleLabel?.font = buttonFont
         contentView.addSubview(btn)
         buttons.append(btn)
         return btn
