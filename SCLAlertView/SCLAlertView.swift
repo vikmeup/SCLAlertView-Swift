@@ -11,7 +11,7 @@ import UIKit
 
 // Pop Up Styles
 public enum SCLAlertViewStyle {
-    case Success, Error, Notice, Warning, Info, Edit, Wait
+    case Success, Error, Notice, Warning, Info, Edit, Wait, Custom
 }
 
 // Action Types
@@ -405,7 +405,7 @@ public class SCLAlertView: UIViewController {
     }
     
     // showTitle(view, title, subTitle, duration, style)
-    public func showTitle(title: String, subTitle: String, duration: NSTimeInterval?, completeText: String?, style: SCLAlertViewStyle, colorStyle: UInt?, colorTextButton: UInt?) -> SCLAlertViewResponder {
+    public func showTitle(title: String, subTitle: String, duration: NSTimeInterval?, completeText: String?, style: SCLAlertViewStyle, colorStyle: UInt?, colorTextButton: UInt?, image: UIImage? = nil) -> SCLAlertViewResponder {
         selfReference = self
         view.alpha = 0
         let rv = UIApplication.sharedApplication().keyWindow! as UIWindow
@@ -414,37 +414,39 @@ public class SCLAlertView: UIViewController {
         baseView.frame = rv.bounds
         
         // Alert colour/icon
-        viewColor = UIColor()
+        if let clrStyle = colorStyle {
+            viewColor = UIColorFromRGB(clrStyle)
+        }
+        
         var iconImage: UIImage?
         
         // Icon style
         switch style {
         case .Success:
-            viewColor = UIColorFromRGB(colorStyle!)
+            
             iconImage = SCLAlertViewStyleKit.imageOfCheckmark
             
         case .Error:
-            viewColor = UIColorFromRGB(colorStyle!)
             iconImage = SCLAlertViewStyleKit.imageOfCross
             
         case .Notice:
-            viewColor = UIColorFromRGB(colorStyle!)
             iconImage = SCLAlertViewStyleKit.imageOfNotice
             
         case .Warning:
-            viewColor = UIColorFromRGB(colorStyle!)
             iconImage = SCLAlertViewStyleKit.imageOfWarning
             
         case .Info:
-            viewColor = UIColorFromRGB(colorStyle!)
             iconImage = SCLAlertViewStyleKit.imageOfInfo
             
         case .Edit:
-            viewColor = UIColorFromRGB(colorStyle!)
             iconImage = SCLAlertViewStyleKit.imageOfEdit
             
         case .Wait:
-            viewColor = UIColorFromRGB(colorStyle!)
+            iconImage = nil
+            
+        case .Custom:
+            iconImage = image
+            
         }
         
         // Title
