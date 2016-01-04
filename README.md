@@ -102,6 +102,12 @@ To install add the following line to your Podfile:
 
     pod 'SCLAlertView'
 
+SCLAlertView is also available through [Carthage](https://github.com/Carthage/Carthage).
+
+To install add the following line to your Cartfile:
+
+    github "vikmeup/SCLAlertView-Swift"
+
 Collaboration
 ---
 
