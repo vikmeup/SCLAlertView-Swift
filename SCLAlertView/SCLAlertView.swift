@@ -275,7 +275,8 @@ public class SCLAlertView: UIViewController {
         let txt = UITextField()
         txt.borderStyle = UITextBorderStyle.RoundedRect
         txt.font = UIFont(name:kDefaultFont, size: 14)
-        txt.autocapitalizationType = UITextAutocapitalizationType.Words
+        txt.autocapitalizationType = UITextAutocapitalizationType.None
+        txt.autocorrectionType = .No
         txt.clearButtonMode = UITextFieldViewMode.WhileEditing
         txt.layer.masksToBounds = true
         txt.layer.borderWidth = 1.0
