@@ -358,7 +358,6 @@ public class SCLAlertView: UIViewController {
     var keyboardHasBeenShown:Bool = false
     
     func keyboardWillShow(notification: NSNotification) {
-        print("keyboardWillShow")
         keyboardHasBeenShown = true
         if let userInfo = notification.userInfo {
             if let beginKeyBoardFrame = userInfo[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.origin.y {
@@ -381,7 +380,6 @@ public class SCLAlertView: UIViewController {
     }
     
     func keyboardWillHide(notification: NSNotification) {
-        print("keyboardWillHide")
         if(keyboardHasBeenShown){//This could happen on the simulator (keyboard will be hidden)
             if(self.tmpContentViewFrameOrigin != nil){
                 self.contentView.frame.origin.y = self.tmpContentViewFrameOrigin!.y
