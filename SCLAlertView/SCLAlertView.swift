@@ -135,6 +135,9 @@ public class SCLAlertView: UIViewController {
     private var buttons = [SCLButton]()
     private var selfReference: SCLAlertView?
     
+    // Bug Alert Going up/down
+    var skeyBoard = 0
+    
     required public init?(coder aDecoder: NSCoder) {
         fatalError("NSCoding not supported")
     }
@@ -355,15 +358,22 @@ public class SCLAlertView: UIViewController {
     var keyboardHasBeenShown:Bool = false
     
     func keyboardWillShow(notification: NSNotification) {
+        print("keyboardWillShow")
         keyboardHasBeenShown = true
         if let userInfo = notification.userInfo {
             if let beginKeyBoardFrame = userInfo[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.origin.y {
                 if let endKeyBoardFrame = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue.origin.y {
-                    tmpContentViewFrameOrigin = self.contentView.frame.origin
-                    tmpCircleViewFrameOrigin = self.circleBG.frame.origin
-                    let newContentViewFrameY = beginKeyBoardFrame - endKeyBoardFrame - self.contentView.frame.origin.y
-                    let newBallViewFrameY = self.circleBG.frame.origin.y - newContentViewFrameY
-                    self.contentView.frame.origin.y -= newContentViewFrameY
+                    if skeyBoard == 0 { // SAVE INITIAL POSITION OF THE ALERT FIRST TIME
+                        tmpContentViewFrameOrigin = self.contentView.frame.origin
+                        tmpCircleViewFrameOrigin = self.circleBG.frame.origin
+                        skeyBoard = 1
+                    }
+                    
+                    self.contentView.frame.origin = tmpContentViewFrameOrigin!
+                    self.circleBG.frame.origin = tmpCircleViewFrameOrigin!
+
+                    self.contentView.frame.origin.y = endKeyBoardFrame - self.contentView.frame.size.height - 10 // 10 is abitrary space between keyb and alert
+                    let newBallViewFrameY = self.contentView.frame.origin.y - self.circleBG.frame.size.height / 2
                     self.circleBG.frame.origin.y = newBallViewFrameY
                 }
             }
@@ -371,6 +381,7 @@ public class SCLAlertView: UIViewController {
     }
     
     func keyboardWillHide(notification: NSNotification) {
+        print("keyboardWillHide")
         if(keyboardHasBeenShown){//This could happen on the simulator (keyboard will be hidden)
             if(self.tmpContentViewFrameOrigin != nil){
                 self.contentView.frame.origin.y = self.tmpContentViewFrameOrigin!.y
