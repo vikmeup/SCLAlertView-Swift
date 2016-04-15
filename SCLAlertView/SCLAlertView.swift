@@ -320,12 +320,35 @@ public class SCLAlertView: UIViewController {
         let btn = SCLButton()
         btn.layer.masksToBounds = true
         btn.setTitle(title, forState: .Normal)
+        //Default Size
         btn.titleLabel?.font = UIFont(name:kButtonFont, size: 14)
+        btn.titleLabel?.numberOfLines = 1
+
+        if labelTextTruncated(btn.titleLabel!) {
+           btn.titleLabel?.font = UIFont(name:kButtonFont, size: 12)
+           btn.titleLabel?.numberOfLines = 2
+           btn.titleLabel?.textAlignment = NSTextAlignment.Center
+            if labelTextTruncated(btn.titleLabel!) {
+                btn.titleLabel?.numberOfLines = 3
+                btn.titleLabel?.font = UIFont(name:kButtonFont, size: 10)
+                btn.titleLabel?.textAlignment = NSTextAlignment.Center
+            }
+        }
+
         contentView.addSubview(btn)
         buttons.append(btn)
         return btn
     }
-    
+
+    func labelTextTruncated (mylabel: UILabel) -> Bool {
+        let paragraph: NSMutableParagraphStyle = NSMutableParagraphStyle()
+        paragraph.lineBreakMode = mylabel.lineBreakMode
+        let attributes: [String : AnyObject] = [NSFontAttributeName: mylabel.font, NSParagraphStyleAttributeName: paragraph]
+        let constrainedSize: CGSize = CGSizeMake(mylabel.bounds.size.width, CGFloat.max)
+        let rect: CGRect = mylabel.text!.boundingRectWithSize(constrainedSize, options: ([.UsesLineFragmentOrigin, .UsesFontLeading]), attributes: attributes, context: nil)
+        return (rect.size.height > mylabel.bounds.size.height)
+    }
+
     func buttonTapped(btn:SCLButton) {
         if btn.actionType == SCLActionType.Closure {
             btn.action()
@@ -333,7 +356,7 @@ public class SCLAlertView: UIViewController {
             let ctrl = UIControl()
             ctrl.sendAction(btn.selector, to:btn.target, forEvent:nil)
         } else {
-            print("Unknow action type for button")
+            print("Unknown action type for button")
         }
         
         if(self.view.alpha != 0.0 && shouldAutoDismiss){ hideView() }
