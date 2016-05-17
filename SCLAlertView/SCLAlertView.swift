@@ -714,10 +714,8 @@ public class SCLAlertView: UIViewController {
                 // Stop StatusTimer
                 self.durationStatusTimer?.invalidate()
                 
-                if(self.dismissBlock != nil) {
-                    // Call completion handler when the alert is dismissed
-                    self.dismissBlock!()
-                }
+                // Call completion handler when the alert is dismissed
+                self.dismissBlock?()
                 
                 // This is necessary for SCLAlertView to be de-initialized, preventing a strong reference cycle with the viewcontroller calling SCLAlertView.
                 for button in self.buttons {
