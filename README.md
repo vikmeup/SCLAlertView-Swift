@@ -53,6 +53,20 @@ SCLAlertView().showTitle(
 
 ### Controls
 
+#### Custom Appearance
+
+```swift
+// SCLAlertView.SCLAppearanc has more than 15 different properties to customize. See below.
+
+let appearance = SCLAlertView.SCLAppearance(
+    kTitleFont: UIFont(name: "HelveticaNeue", size: 20)!,
+    kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
+    kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+    showCloseButton: false
+)
+
+let alert = SCLAlertView(appearance: appearance)
+```
 
 #### Add buttons
 
@@ -68,16 +82,20 @@ alertView.showSuccess("Button View", subTitle: "This alert view has buttons")
 #### Hide default close button
 
 ```swift
-let alertView = SCLAlertView()
-alertView.showCloseButton = false
+let appearance = SCLAlertView.SCLAppearance(
+    showCloseButton: false
+)
+let alertView = SCLAlertView(appearance: appearance)
 alertView.showSuccess("No button", subTitle: "You will have hard times trying to close me")
 ```
 
 #### Hide default close button & a duration to close the alert
 
 ```swift
-let alertView = SCLAlertView()
-alertView.showCloseButton = false
+let appearance = SCLAlertView.SCLAppearance(
+    showCloseButton: false
+)
+let alertView = SCLAlertView(appearance: appearance)
 alertView.showWarning("No button", subTitle: "Just wait for 3 seconds and I will disappear", duration: 3)
 ```
 
@@ -85,17 +103,21 @@ alertView.showWarning("No button", subTitle: "Just wait for 3 seconds and I will
 #### Hide alert icon
 
 ```swift
-let alertView = SCLAlertView()
-alertView.showCircularIcon = false
+let appearance = SCLAlertView.SCLAppearance(
+    showCircularIcon: false
+)
+let alert = SCLAlertView(appearance: appearance)
 alertView.showSuccess("No icon", subTitle: "This is a clean alert without Icon!")
 ```
 
 #### Use a custom icon
 
 ```swift
-let alertView = SCLAlertView()
+let appearance = SCLAlertView.SCLAppearance(
+    showCircularIcon: true
+)
+let alert = SCLAlertView(appearance: appearance)
 let alertViewIcon = UIImage(named: "IconImage") //Replace the IconImage text with the image name
-alertView.showCircularIcon = true
 alertView.showInfo("Custom icon", subTitle: "This is a nice alert with a custom icon you choose", circleIconImage: alertViewIcon)
 ```
 
@@ -116,9 +138,20 @@ alert.showEdit("Edit View", subTitle: "This alert view shows a text box")
 ```swift
 // Example of using the view to add two text fields to the alert
 // Create the subview
+let appearance = SCLAlertView.SCLAppearance(
+    kTitleFont: UIFont(name: "HelveticaNeue", size: 20)!,
+    kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
+    kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+    showCloseButton: false
+)
+
+// Initialize SCLAlertView using custom Appearance
+let alert = SCLAlertView(appearance: appearance)
+
+// Creat the subview
 let subview = UIView(frame: CGRectMake(0,0,216,70))
 let x = (subview.frame.width - 180) / 2
-        
+
 // Add textfield 1
 let textfield1 = UITextField(frame: CGRectMake(x,10,180,25))
 textfield1.layer.borderColor = UIColor.greenColor().CGColor
@@ -127,7 +160,7 @@ textfield1.layer.cornerRadius = 5
 textfield1.placeholder = "Username"
 textfield1.textAlignment = NSTextAlignment.Center
 subview.addSubview(textfield1)
-        
+
 // Add textfield 2
 let textfield2 = UITextField(frame: CGRectMake(x,textfield1.frame.maxY + 10,180,25))
 textfield2.secureTextEntry = true
@@ -138,15 +171,54 @@ textfield1.layer.borderColor = UIColor.blueColor().CGColor
 textfield2.placeholder = "Password"
 textfield2.textAlignment = NSTextAlignment.Center
 subview.addSubview(textfield2)
-        
+
 // Add the subview to the alert's UI property
 alert.customSubview = subview
-alert.showCloseButton = false
 alert.addButton("Login") {
     print("Logged in")
 }
-        
-alert.showInfo("Login", subTitle: "")
+
+// Add Button with Duration Status and custom Colors
+alert.addButton("Duration Button", backgroundColor: UIColor.brownColor(), textColor: UIColor.yellowColor(), showDurationStatus: true) {
+    print("Duration Button tapped")
+}
+
+alert.showInfo("Login", subTitle: "", duration: 10)
+```
+
+
+#### List of properties to customize
+
+````swift
+// Button 
+kButtonFont: UIFont                     
+buttonCornerRadius : CGFloat            
+showCloseButton: Bool                   
+kButtonHeight: CGFloat                  
+
+// Circle Image
+showCircularIcon: Bool
+kCircleTopPosition: CGFloat
+kCircleBackgroundTopPosition: CGFloat
+kCircleHeight: CGFloat
+kCircleIconHeight: CGFloat
+
+// Text
+kTitleFont: UIFont
+kTitleTop:CGFloat
+kTitleHeight:CGFloat
+kTextFont: UIFont
+kTextHeight: CGFloat
+kTextFieldHeight: CGFloat
+kTextViewdHeight: CGFloat
+
+// View 
+kDefaultShadowOpacity: CGFloat          
+kWindowWidth: CGFloat
+kWindowHeight: CGFloat
+shouldAutoDismiss: Bool // Set this false to 'Disable' Auto hideView when SCLButton is tapped
+fieldCornerRadius : CGFloat
+contentViewCornerRadius : CGFloat
 ```
 
 
