@@ -49,7 +49,7 @@ public enum SCLActionType {
 public class SCLButton: UIButton {
     var actionType = SCLActionType.None
     var target:AnyObject!
-    var selector:Selector!
+    var selector:Selector!viewText.backgroundColor
     var action:(()->Void)!
     var customBackgroundColor:UIColor?
     var customTextColor:UIColor?
@@ -264,7 +264,7 @@ public class SCLAlertView: UIViewController {
         viewText.font = appearance.kTextFont
         // Colours
         contentView.backgroundColor = appearance.contentViewColor
-        viewText.backgroundColor = appearance.contentViewColor
+        viewText.backgroundColor = UIColor.clearColor()
         labelTitle.textColor = appearance.titleColor
         viewText.textColor = appearance.titleColor
         contentView.layer.borderColor = appearance.contentViewBorderColor.CGColor
