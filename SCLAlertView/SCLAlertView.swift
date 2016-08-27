@@ -49,7 +49,7 @@ public enum SCLActionType {
 public class SCLButton: UIButton {
     var actionType = SCLActionType.None
     var target:AnyObject!
-    var selector:Selector!viewText.backgroundColor
+    var selector:Selector!
     var action:(()->Void)!
     var customBackgroundColor:UIColor?
     var customTextColor:UIColor?
