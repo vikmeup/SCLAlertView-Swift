@@ -153,11 +153,13 @@ open class SCLAlertView: UIViewController {
         var contentViewCornerRadius : CGFloat
         var fieldCornerRadius : CGFloat
         var buttonCornerRadius : CGFloat
+        var dynamicAnimatorActive : Bool
+
         
         // Actions
         var hideWhenBackgroundViewIsTapped: Bool
         
-        public init(kDefaultShadowOpacity: CGFloat = 0.7, kCircleTopPosition: CGFloat = -12.0, kCircleBackgroundTopPosition: CGFloat = -15.0, kCircleHeight: CGFloat = 56.0, kCircleIconHeight: CGFloat = 20.0, kTitleTop:CGFloat = 30.0, kTitleHeight:CGFloat = 25.0, kWindowWidth: CGFloat = 240.0, kWindowHeight: CGFloat = 178.0, kTextHeight: CGFloat = 90.0, kTextFieldHeight: CGFloat = 45.0, kTextViewdHeight: CGFloat = 80.0, kButtonHeight: CGFloat = 45.0, kTitleFont: UIFont = UIFont.systemFont(ofSize: 20), kTextFont: UIFont = UIFont.systemFont(ofSize: 14), kButtonFont: UIFont = UIFont.boldSystemFont(ofSize: 14), showCloseButton: Bool = true, showCircularIcon: Bool = true, shouldAutoDismiss: Bool = true, contentViewCornerRadius: CGFloat = 5.0, fieldCornerRadius: CGFloat = 3.0, buttonCornerRadius: CGFloat = 3.0, hideWhenBackgroundViewIsTapped: Bool = false, contentViewColor: UIColor = UIColorFromRGB(0xFFFFFF), contentViewBorderColor: UIColor = UIColorFromRGB(0xCCCCCC), titleColor: UIColor = UIColorFromRGB(0x4D4D4D)) {
+        public init(kDefaultShadowOpacity: CGFloat = 0.7, kCircleTopPosition: CGFloat = -12.0, kCircleBackgroundTopPosition: CGFloat = -15.0, kCircleHeight: CGFloat = 56.0, kCircleIconHeight: CGFloat = 20.0, kTitleTop:CGFloat = 30.0, kTitleHeight:CGFloat = 25.0, kWindowWidth: CGFloat = 240.0, kWindowHeight: CGFloat = 178.0, kTextHeight: CGFloat = 90.0, kTextFieldHeight: CGFloat = 45.0, kTextViewdHeight: CGFloat = 80.0, kButtonHeight: CGFloat = 45.0, kTitleFont: UIFont = UIFont.systemFont(ofSize: 20), kTextFont: UIFont = UIFont.systemFont(ofSize: 14), kButtonFont: UIFont = UIFont.boldSystemFont(ofSize: 14), showCloseButton: Bool = true, showCircularIcon: Bool = true, shouldAutoDismiss: Bool = true, contentViewCornerRadius: CGFloat = 5.0, fieldCornerRadius: CGFloat = 3.0, buttonCornerRadius: CGFloat = 3.0, hideWhenBackgroundViewIsTapped: Bool = false, contentViewColor: UIColor = UIColorFromRGB(0xFFFFFF), contentViewBorderColor: UIColor = UIColorFromRGB(0xCCCCCC), titleColor: UIColor = UIColorFromRGB(0x4D4D4D), dynamicAnimatorActive: Bool = false ) {
             
             self.kDefaultShadowOpacity = kDefaultShadowOpacity
             self.kCircleTopPosition = kCircleTopPosition
@@ -188,6 +190,7 @@ open class SCLAlertView: UIViewController {
             self.buttonCornerRadius = buttonCornerRadius
             
             self.hideWhenBackgroundViewIsTapped = hideWhenBackgroundViewIsTapped
+            self.dynamicAnimatorActive = dynamicAnimatorActive
         }
         
         mutating func setkWindowHeight(_ kWindowHeight:CGFloat) {
@@ -207,8 +210,7 @@ open class SCLAlertView: UIViewController {
     // UI Options
     open var iconTintColor: UIColor?
     open var customSubview : UIView?
-    
-
+  
     
     // Members declaration
     var baseView = UIView()
@@ -226,6 +228,9 @@ open class SCLAlertView: UIViewController {
     fileprivate var input = [UITextView]()
     internal var buttons = [SCLButton]()
     fileprivate var selfReference: SCLAlertView?
+    
+    
+    
     
     public init(appearance: SCLAppearance) {
         self.appearance = appearance
@@ -750,6 +755,7 @@ open class SCLAlertView: UIViewController {
         return SCLAlertViewResponder(alertview: self)
     }
     
+    
     // Show animation in the alert view
     fileprivate func showAnimation(_ animationStyle: SCLAnimationStyle = .topToBottom, animationStartOffset: CGFloat = -400.0, boundingAnimationOffset: CGFloat = 15.0, animationDuration: TimeInterval = 0.2) {
         
@@ -781,21 +787,58 @@ open class SCLAlertView: UIViewController {
         }
 
         self.baseView.frame.origin = animationStartOrigin
-        UIView.animate(withDuration: animationDuration, animations: {
-            self.view.alpha = 1.0
-            self.baseView.center = animationCenter
-            }, completion: { finished in
-                UIView.animate(withDuration: animationDuration, animations: {
-                    self.view.alpha = 1.0
-                    self.baseView.center = rv.center
-                })
-        })
+        
+        
+        if self.appearance.dynamicAnimatorActive {
+        
+            UIView.animate(withDuration: animationDuration, animations: { 
+                self.view.alpha = 1.0
+            })
+            
+            self.animate(item: self.baseView, center: rv.center)
+        
+        } else {
+        
+            UIView.animate(withDuration: animationDuration, animations: {
+                self.view.alpha = 1.0
+                 self.baseView.center = animationCenter
+                }, completion: { finished in
+                    
+                    UIView.animate(withDuration: animationDuration, animations: {
+                        self.view.alpha = 1.0
+                        self.baseView.center = rv.center
+                    })
+                    
+            })
+
+        }
+        
     }
     
+    
+    // DynamicAnimator function
+    var animator : UIDynamicAnimator?
+    var snapBehavior : UISnapBehavior?
+    
+    fileprivate func animate(item : UIView , center: CGPoint) {
+    
+        if let snapBehavior = self.snapBehavior {
+            self.animator?.removeBehavior(snapBehavior)
+        }
+        
+        self.animator = UIDynamicAnimator.init(referenceView: self.view)
+        let tempSnapBehavior  =  UISnapBehavior.init(item: item, snapTo: center)
+        self.animator?.addBehavior(tempSnapBehavior)
+        self.snapBehavior? = tempSnapBehavior
+    }
+    
+    
+    //
     open func updateDurationStatus() {
         duration = duration.advanced(by: -1)
         for btn in buttons.filter({$0.showDurationStatus}) {
-            let txt = "\(btn.initialTitle) (\(duration))"
+            
+            let txt = String(btn.initialTitle) + " " + String(Int(duration))
             btn.setTitle(txt, for: UIControlState())
         }
     }
