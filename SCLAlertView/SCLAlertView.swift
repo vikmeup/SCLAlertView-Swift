@@ -209,7 +209,6 @@ open class SCLAlertView: UIViewController {
     // UI Options
     open var iconTintColor: UIColor?
     open var customSubview : UIView?
-  
     
     // Members declaration
     var baseView = UIView()
@@ -821,7 +820,6 @@ open class SCLAlertView: UIViewController {
     open func updateDurationStatus() {
         duration = duration.advanced(by: -1)
         for btn in buttons.filter({$0.showDurationStatus}) {
-            
             let txt = String(btn.initialTitle) + " " + String(Int(duration))
             btn.setTitle(txt, for: UIControlState())
         }

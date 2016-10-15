@@ -38,7 +38,6 @@ class ViewController: UIViewController {
 		_ = alert.addButton("Second Button") {
 			print("Second button tapped")
 		}
-        
         _ = alert.showSuccess(kSuccessTitle, subTitle: kSubtitle)
     }
     
