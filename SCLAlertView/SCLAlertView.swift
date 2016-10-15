@@ -154,7 +154,6 @@ open class SCLAlertView: UIViewController {
         var fieldCornerRadius : CGFloat
         var buttonCornerRadius : CGFloat
         var dynamicAnimatorActive : Bool
-
         
         // Actions
         var hideWhenBackgroundViewIsTapped: Bool
@@ -228,8 +227,6 @@ open class SCLAlertView: UIViewController {
     fileprivate var input = [UITextView]()
     internal var buttons = [SCLButton]()
     fileprivate var selfReference: SCLAlertView?
-    
-    
     
     
     public init(appearance: SCLAppearance) {
@@ -788,33 +785,23 @@ open class SCLAlertView: UIViewController {
 
         self.baseView.frame.origin = animationStartOrigin
         
-        
         if self.appearance.dynamicAnimatorActive {
-        
             UIView.animate(withDuration: animationDuration, animations: { 
                 self.view.alpha = 1.0
             })
-            
             self.animate(item: self.baseView, center: rv.center)
-        
         } else {
-        
             UIView.animate(withDuration: animationDuration, animations: {
                 self.view.alpha = 1.0
                  self.baseView.center = animationCenter
                 }, completion: { finished in
-                    
                     UIView.animate(withDuration: animationDuration, animations: {
                         self.view.alpha = 1.0
                         self.baseView.center = rv.center
                     })
-                    
             })
-
         }
-        
     }
-    
     
     // DynamicAnimator function
     var animator : UIDynamicAnimator?
@@ -831,7 +818,6 @@ open class SCLAlertView: UIViewController {
         self.animator?.addBehavior(tempSnapBehavior)
         self.snapBehavior? = tempSnapBehavior
     }
-    
     
     //
     open func updateDurationStatus() {
