@@ -228,7 +228,6 @@ open class SCLAlertView: UIViewController {
     internal var buttons = [SCLButton]()
     fileprivate var selfReference: SCLAlertView?
     
-    
     public init(appearance: SCLAppearance) {
         self.appearance = appearance
         super.init(nibName:nil, bundle:nil)
@@ -751,7 +750,6 @@ open class SCLAlertView: UIViewController {
         // Chainable objects
         return SCLAlertViewResponder(alertview: self)
     }
-    
     
     // Show animation in the alert view
     fileprivate func showAnimation(_ animationStyle: SCLAnimationStyle = .topToBottom, animationStartOffset: CGFloat = -400.0, boundingAnimationOffset: CGFloat = 15.0, animationDuration: TimeInterval = 0.2) {
