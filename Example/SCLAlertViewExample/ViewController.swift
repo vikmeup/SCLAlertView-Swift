@@ -47,7 +47,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func showNotice(_ sender: AnyObject) {
-        _ = SCLAlertView().showNotice(kNoticeTitle, subTitle: kSubtitle)
+        let appearance = SCLAlertView.SCLAppearance(dynamicAnimatorActive: true)
+        _ = SCLAlertView(appearance: appearance).showNotice(kNoticeTitle, subTitle: kSubtitle)
     }
     
     @IBAction func showWarning(_ sender: AnyObject) {
@@ -75,7 +76,8 @@ class ViewController: UIViewController {
             kTitleFont: UIFont(name: "HelveticaNeue", size: 20)!,
             kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
             kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
-            showCloseButton: false
+            showCloseButton: false,
+            dynamicAnimatorActive: true
         )
         
         // Initialize SCLAlertView using custom Appearance
