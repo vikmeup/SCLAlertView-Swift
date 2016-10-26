@@ -546,6 +546,7 @@ open class SCLAlertView: UIViewController {
     }
     
     // showCustom(view, title, subTitle, UIColor, UIImage)
+    @discardableResult
     open func showCustom(_ title: String, subTitle: String, color: UIColor, icon: UIImage, closeButtonTitle:String?=nil, duration:TimeInterval=0.0, colorStyle: UInt=SCLAlertViewStyle.success.defaultColorInt, colorTextButton: UInt=0xFFFFFF, circleIconImage: UIImage? = nil, animationStyle: SCLAnimationStyle = .topToBottom) -> SCLAlertViewResponder {
         
         
