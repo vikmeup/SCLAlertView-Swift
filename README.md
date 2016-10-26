@@ -77,7 +77,7 @@ let alert = SCLAlertView(appearance: appearance)
 let alertView = SCLAlertView()
 alertView.addButton("First Button", target:self, selector:Selector("firstButton"))
 alertView.addButton("Second Button") {
-    println("Second button tapped")
+    print("Second button tapped")
 }
 alertView.showSuccess("Button View", subTitle: "This alert view has buttons")
 ```
