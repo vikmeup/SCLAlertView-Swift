@@ -222,7 +222,7 @@ kWindowHeight: CGFloat
 shouldAutoDismiss: Bool // Set this false to 'Disable' Auto hideView when SCLButton is tapped
 fieldCornerRadius : CGFloat
 contentViewCornerRadius : CGFloat
-var disableTapGesture: Bool // set this to true if adding tableview to subView
+disableTapGesture: Bool // set this to true if adding tableview to subView
 ```
 
 
