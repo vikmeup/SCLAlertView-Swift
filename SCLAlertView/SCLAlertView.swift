@@ -272,7 +272,7 @@ open class SCLAlertView: UIViewController {
         circleView.frame = CGRect(x:x, y:x, width:appearance.kCircleHeight, height:appearance.kCircleHeight)
         circleView.layer.cornerRadius = circleView.frame.size.height / 2
         // Title
-        labelTitle.numberOfLines = 1
+        labelTitle.numberOfLines = 0
         labelTitle.textAlignment = .center
         labelTitle.font = appearance.kTitleFont
         labelTitle.frame = CGRect(x:12, y:appearance.kTitleTop, width: appearance.kWindowWidth - 24, height:appearance.kTitleHeight)
@@ -302,10 +302,16 @@ open class SCLAlertView: UIViewController {
         // Set background frame
         view.frame.size = sz
         
+        // get actual height of title text
+        let titleActualHeight = labelTitle.text!.heightWithConstrainedWidth(appearance.kWindowWidth - 24, font: labelTitle.font) + 10
+        
+        // get the larger height for the title text
+        let titleReservedHeight = (titleActualHeight > appearance.kTitleHeight ? titleActualHeight : appearance.kTitleHeight)
+        
         // computing the right size to use for the textView
         let maxHeight = sz.height - 100 // max overall height
         var consumedHeight = CGFloat(0)
-        consumedHeight += appearance.kTitleTop + appearance.kTitleHeight
+        consumedHeight += appearance.kTitleTop + titleReservedHeight
         consumedHeight += 14
         consumedHeight += appearance.kButtonHeight * CGFloat(buttons.count)
         consumedHeight += appearance.kTextFieldHeight * CGFloat(inputs.count)
@@ -347,7 +353,7 @@ open class SCLAlertView: UIViewController {
         labelTitle.frame = labelTitle.frame.offsetBy(dx: 0, dy: titleOffset)
         
         // Subtitle
-        y = appearance.kTitleTop + appearance.kTitleHeight + titleOffset
+        y = appearance.kTitleTop + titleReservedHeight + titleOffset
         viewText.frame = CGRect(x:12, y:y, width: appearance.kWindowWidth - 24, height:appearance.kTextHeight)
         viewText.frame = CGRect(x:12, y:y, width: viewTextWidth, height:viewTextHeight)
         // Text fields
@@ -660,6 +666,8 @@ open class SCLAlertView: UIViewController {
         // Title
         if !title.isEmpty {
             self.labelTitle.text = title
+            let actualHeight = title.heightWithConstrainedWidth(appearance.kWindowWidth - 24, font: self.labelTitle.font)
+            self.labelTitle.frame = CGRect(x:12, y:appearance.kTitleTop, width: appearance.kWindowWidth - 24, height:actualHeight)
         }
         
         // Subtitle
