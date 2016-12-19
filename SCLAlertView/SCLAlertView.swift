@@ -307,11 +307,13 @@ open class SCLAlertView: UIViewController {
         
         // Set background frame
         view.frame.size = sz
-        
+
+        let hMargin: CGFloat = 12
+
         // get actual height of title text
         var titleActualHeight: CGFloat = 0
         if let title = labelTitle.text {
-          titleActualHeight = title.heightWithConstrainedWidth(width: appearance.kWindowWidth - 24, font: labelTitle.font) + 10
+          titleActualHeight = title.heightWithConstrainedWidth(width: appearance.kWindowWidth - hMargin * 2, font: labelTitle.font) + 10
           // get the larger height for the title text
           titleActualHeight = (titleActualHeight > appearance.kTitleHeight ? titleActualHeight : appearance.kTitleHeight)
         }
@@ -319,13 +321,13 @@ open class SCLAlertView: UIViewController {
         // computing the right size to use for the textView
         let maxHeight = sz.height - 100 // max overall height
         var consumedHeight = CGFloat(0)
-        consumedHeight += appearance.kTitleTop + titleActualHeight
+        consumedHeight += (titleActualHeight > 0 ? appearance.kTitleTop + titleActualHeight : hMargin)
         consumedHeight += 14
         consumedHeight += appearance.kButtonHeight * CGFloat(buttons.count)
         consumedHeight += appearance.kTextFieldHeight * CGFloat(inputs.count)
         consumedHeight += appearance.kTextViewdHeight * CGFloat(input.count)
         let maxViewTextHeight = maxHeight - consumedHeight
-        let viewTextWidth = appearance.kWindowWidth - 24
+        let viewTextWidth = appearance.kWindowWidth - hMargin * 2
         var viewTextHeight = appearance.kTextHeight
         
         // Check if there is a custom subview and add it over the textview
@@ -361,24 +363,24 @@ open class SCLAlertView: UIViewController {
         labelTitle.frame = labelTitle.frame.offsetBy(dx: 0, dy: titleOffset)
         
         // Subtitle
-        y = appearance.kTitleTop + titleActualHeight + titleOffset
-        viewText.frame = CGRect(x:12, y:y, width: appearance.kWindowWidth - 24, height:appearance.kTextHeight)
-        viewText.frame = CGRect(x:12, y:y, width: viewTextWidth, height:viewTextHeight)
+        y = titleActualHeight > 0 ? appearance.kTitleTop + titleActualHeight + titleOffset : hMargin
+        viewText.frame = CGRect(x:hMargin, y:y, width: appearance.kWindowWidth - hMargin * 2, height:appearance.kTextHeight)
+        viewText.frame = CGRect(x:hMargin, y:y, width: viewTextWidth, height:viewTextHeight)
         // Text fields
         y += viewTextHeight + 14.0
         for txt in inputs {
-            txt.frame = CGRect(x:12, y:y, width:appearance.kWindowWidth - 24, height:30)
+            txt.frame = CGRect(x:hMargin, y:y, width:appearance.kWindowWidth - hMargin * 2, height:30)
             txt.layer.cornerRadius = appearance.fieldCornerRadius
             y += appearance.kTextFieldHeight
         }
         for txt in input {
-            txt.frame = CGRect(x:12, y:y, width:appearance.kWindowWidth - 24, height:70)
+            txt.frame = CGRect(x:hMargin, y:y, width:appearance.kWindowWidth - hMargin * 2, height:70)
             //txt.layer.cornerRadius = fieldCornerRadius
             y += appearance.kTextViewdHeight
         }
         // Buttons
         for btn in buttons {
-            btn.frame = CGRect(x:12, y:y, width:appearance.kWindowWidth - 24, height:35)
+            btn.frame = CGRect(x:hMargin, y:y, width:appearance.kWindowWidth - hMargin * 2, height:35)
             btn.layer.cornerRadius = appearance.buttonCornerRadius
             y += appearance.kButtonHeight
         }
