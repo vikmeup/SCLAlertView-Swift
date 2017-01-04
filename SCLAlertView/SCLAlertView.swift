@@ -31,7 +31,7 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 // Pop Up Styles
 public enum SCLAlertViewStyle {
-    case success, error, notice, warning, info, edit, wait
+    case success, error, notice, warning, info, edit, wait, question
     
     var defaultColorInt: UInt {
         switch self {
@@ -49,6 +49,8 @@ public enum SCLAlertViewStyle {
             return 0xA429FF
         case .wait:
             return 0xD62DA5
+        case .question:
+            return 0x727375
         }
         
     }
@@ -671,6 +673,9 @@ open class SCLAlertView: UIViewController {
             
         case .wait:
             iconImage = nil
+            
+        case .question:
+            iconImage = checkCircleIconImage(circleIconImage, defaultImage:SCLAlertViewStyleKit.imageOfQuestion)
         }
         
         // Title
@@ -912,6 +917,8 @@ class SCLAlertViewStyleKit : NSObject {
         static var infoTargets: [AnyObject]?
         static var imageOfEdit: UIImage?
         static var editTargets: [AnyObject]?
+        static var imageOfQuestion: UIImage?
+        static var questionTargets: [AnyObject]?
     }
     
     // Initialization
@@ -1108,6 +1115,35 @@ class SCLAlertViewStyleKit : NSObject {
         editPathPath.fill()
     }
     
+    class func drawQuestion() {
+        // Color Declarations
+        var color = UIColor(red: CGFloat(1.0), green: CGFloat(1.0), blue: CGFloat(1.0), alpha: CGFloat(1.0))
+        // Questionmark Shape Drawing
+        var questionShapePath = UIBezierPath()
+        questionShapePath.move(to: CGPoint(x: CGFloat(33.75), y: CGFloat(54.1)))
+        questionShapePath.addLine(to: CGPoint(x: CGFloat(44.15), y: CGFloat(54.1)))
+        questionShapePath.addLine(to: CGPoint(x: CGFloat(44.15), y: CGFloat(47.5)))
+        questionShapePath.addCurve(to: CGPoint(x: CGFloat(51.85), y: CGFloat(37.2)), controlPoint1: CGPoint(x: CGFloat(44.15), y: CGFloat(42.9)), controlPoint2: CGPoint(x: CGFloat(46.75), y: CGFloat(41.2)))
+        questionShapePath.addCurve(to: CGPoint(x: CGFloat(61.95), y: CGFloat(19.9)), controlPoint1: CGPoint(x: CGFloat(59.05), y: CGFloat(31.6)), controlPoint2: CGPoint(x: CGFloat(61.95), y: CGFloat(28.5)))
+        questionShapePath.addCurve(to: CGPoint(x: CGFloat(41.45), y: CGFloat(2.8)), controlPoint1: CGPoint(x: CGFloat(61.95), y: CGFloat(7.6)), controlPoint2: CGPoint(x: CGFloat(52.85), y: CGFloat(2.8)))
+        questionShapePath.addCurve(to: CGPoint(x: CGFloat(25.05), y: CGFloat(5.8)), controlPoint1: CGPoint(x: CGFloat(34.75), y: CGFloat(2.8)), controlPoint2: CGPoint(x: CGFloat(29.65), y: CGFloat(3.8)))
+        questionShapePath.addLine(to: CGPoint(x: CGFloat(25.05), y: CGFloat(14.4)))
+        questionShapePath.addCurve(to: CGPoint(x: CGFloat(38.15), y: CGFloat(12.3)), controlPoint1: CGPoint(x: CGFloat(29.15), y: CGFloat(13.2)), controlPoint2: CGPoint(x: CGFloat(32.35), y: CGFloat(12.3)))
+        questionShapePath.addCurve(to: CGPoint(x: CGFloat(49.65), y: CGFloat(20.8)), controlPoint1: CGPoint(x: CGFloat(45.65), y: CGFloat(12.3)), controlPoint2: CGPoint(x: CGFloat(49.65), y: CGFloat(14.4)))
+        questionShapePath.addCurve(to: CGPoint(x: CGFloat(43.65), y: CGFloat(31.7)), controlPoint1: CGPoint(x: CGFloat(49.65), y: CGFloat(26)), controlPoint2: CGPoint(x: CGFloat(47.95), y: CGFloat(28.4)))
+        questionShapePath.addCurve(to: CGPoint(x: CGFloat(33.75), y: CGFloat(46.6)), controlPoint1: CGPoint(x: CGFloat(37.15), y: CGFloat(36.9)), controlPoint2: CGPoint(x: CGFloat(33.75), y: CGFloat(39.7)))
+        questionShapePath.addLine(to: CGPoint(x: CGFloat(33.75), y: CGFloat(54.1)))
+        questionShapePath.close()
+        questionShapePath.move(to: CGPoint(x: CGFloat(33.15), y: CGFloat(75.4)))
+        questionShapePath.addLine(to: CGPoint(x: CGFloat(45.35), y: CGFloat(75.4)))
+        questionShapePath.addLine(to: CGPoint(x: CGFloat(45.35), y: CGFloat(63.7)))
+        questionShapePath.addLine(to: CGPoint(x: CGFloat(33.15), y: CGFloat(63.7)))
+        questionShapePath.addLine(to: CGPoint(x: CGFloat(33.15), y: CGFloat(75.4)))
+        questionShapePath.close()
+        color.setFill()
+        questionShapePath.fill()
+    }
+    
     // Generated Images
     class var imageOfCheckmark: UIImage {
         if (Cache.imageOfCheckmark != nil) {
@@ -1173,5 +1209,16 @@ class SCLAlertViewStyleKit : NSObject {
         Cache.imageOfEdit = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return Cache.imageOfEdit!
+    }
+    
+    class var imageOfQuestion: UIImage {
+        if (Cache.imageOfQuestion != nil) {
+            return Cache.imageOfQuestion!
+        }
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: 80, height: 80), false, 0)
+        SCLAlertViewStyleKit.drawQuestion()
+        Cache.imageOfQuestion = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return Cache.imageOfQuestion!
     }
 }
