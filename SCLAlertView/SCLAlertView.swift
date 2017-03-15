@@ -886,12 +886,12 @@ open class SCLAlertView: UIViewController {
         
         let endingFrame = CGRect(origin: animationEndOrigin, size: self.view.frame.size)
         if self.appearance.dynamicAnimatorActive {
-            UIView.animate(withDuration: animationDuration, animations: {
-                self.view.alpha = 0.0
-            })
-
             let center = CGPoint(x: endingFrame.midX, y: endingFrame.midY)
             self.animate(item: self.baseView, center: center)
+
+            UIView.animate(withDuration: animationDuration, animations: {
+                self.view.alpha = 0.0
+            }, completion: completeAction)
         } else {
             UIView.animate(withDuration: animationDuration, animations: {
                 self.baseView.frame = self.baseView.frame.offsetBy(dx: offsetX, dy: offsetY)
