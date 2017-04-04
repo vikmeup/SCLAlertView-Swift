@@ -209,14 +209,17 @@ open class SCLAlertView: UIViewController {
         }
     }
     
-    var appearance: SCLAppearance!
+    var appearance: SCLAppearance
     
     // UI Colour
     var viewColor = UIColor()
     
     // UI Options
     open var iconTintColor: UIColor?
-    open var customSubview : UIView?
+    open var customSubview: UIView?
+    public var windowWidth: CGFloat {
+        return appearance.kWindowWidth
+    }
     
     // Members declaration
     var baseView = UIView()
