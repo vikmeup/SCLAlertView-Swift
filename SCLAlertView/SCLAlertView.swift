@@ -156,6 +156,7 @@ open class SCLAlertView: UIViewController {
         var disableTapGesture: Bool
         var showCloseButton: Bool
         var showCircularIcon: Bool
+        var iconIsRounded: Bool = true
         var shouldAutoDismiss: Bool // Set this false to 'Disable' Auto hideView when SCLButton is tapped
         var contentViewCornerRadius : CGFloat
         var fieldCornerRadius : CGFloat
@@ -761,8 +762,9 @@ open class SCLAlertView: UIViewController {
         circleView.addSubview(circleIconView!)
         let x = (appearance.kCircleHeight - appearance.kCircleIconHeight) / 2
         circleIconView!.frame = CGRect( x: x, y: x, width: appearance.kCircleIconHeight, height: appearance.kCircleIconHeight)
-        circleIconView?.layer.cornerRadius = circleIconView!.bounds.height / 2
-        circleIconView?.layer.masksToBounds = true
+        let rounded = appearance.iconIsRounded
+        circleIconView?.layer.cornerRadius = rounded ? circleIconView!.bounds.height / 2.0 : 0.0
+        circleIconView?.layer.masksToBounds = rounded
         
         for txt in inputs {
             txt.layer.borderColor = viewColor.cgColor
