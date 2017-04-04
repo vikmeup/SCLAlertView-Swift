@@ -711,8 +711,8 @@ open class SCLAlertView: UIViewController {
             self.labelTitle.text = title
             let actualHeight = title.heightWithConstrainedWidth(width: appearance.kWindowWidth - 2.0*appearance.horizontalMargin,
                                                                 font: self.labelTitle.font)
-            self.labelTitle.frame = CGRect(x:12,
-                                           y:appearance.kTitleTop,
+            self.labelTitle.frame = CGRect(x: appearance.horizontalMargin,
+                                           y: appearance.kTitleTop,
                                            width: appearance.kWindowWidth - 2.0*appearance.horizontalMargin,
                                            height: actualHeight)
         }
