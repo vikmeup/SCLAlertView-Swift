@@ -1123,9 +1123,9 @@ class SCLAlertViewStyleKit : NSObject {
     
     class func drawQuestion() {
         // Color Declarations
-        var color = UIColor(red: CGFloat(1.0), green: CGFloat(1.0), blue: CGFloat(1.0), alpha: CGFloat(1.0))
+        let color = UIColor(red: CGFloat(1.0), green: CGFloat(1.0), blue: CGFloat(1.0), alpha: CGFloat(1.0))
         // Questionmark Shape Drawing
-        var questionShapePath = UIBezierPath()
+        let questionShapePath = UIBezierPath()
         questionShapePath.move(to: CGPoint(x: CGFloat(33.75), y: CGFloat(54.1)))
         questionShapePath.addLine(to: CGPoint(x: CGFloat(44.15), y: CGFloat(54.1)))
         questionShapePath.addLine(to: CGPoint(x: CGFloat(44.15), y: CGFloat(47.5)))
