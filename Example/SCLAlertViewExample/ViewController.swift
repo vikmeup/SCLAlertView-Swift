@@ -113,12 +113,13 @@ class ViewController: UIViewController {
             print("Logged in")
         }
         
-        // Add Button with Duration Status and custom Colors
-        _ = alert.addButton("Duration Button", backgroundColor: UIColor.brown, textColor: UIColor.yellow, showDurationStatus: true) {
-            print("Duration Button tapped")
+        // Add Button with visible timeout and custom Colors
+        let showTimeout = SCLButton.ShowTimeoutConfiguration(prefix: "(", suffix: " s)")
+        _ = alert.addButton("Timeout Button", backgroundColor: UIColor.brown, textColor: UIColor.yellow, showTimeout: showTimeout) {
+            print("Timeout Button tapped")
         }
 
-        _ = alert.showInfo("Login", subTitle: "", duration: 10)
+        _ = alert.showInfo("Login", subTitle: "", timeout: 10)
     }
     
     @IBAction func showCustomAlert(_ sender: AnyObject) {

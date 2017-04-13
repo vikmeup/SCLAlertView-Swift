@@ -76,7 +76,17 @@ open class SCLButton: UIButton {
     var customBackgroundColor:UIColor?
     var customTextColor:UIColor?
     var initialTitle:String!
-    var showDurationStatus:Bool=false
+    var showTimeout:ShowTimeoutConfiguration?
+    
+    public struct ShowTimeoutConfiguration {
+        let prefix: String
+        let suffix: String
+        
+        public init(prefix: String = "", suffix: String = "") {
+            self.prefix = prefix
+            self.suffix = suffix
+        }
+    }
     
     public init() {
         super.init(frame: CGRect.zero)
@@ -226,9 +236,9 @@ open class SCLAlertView: UIViewController {
     var circleBG = UIView(frame:CGRect(x:0, y:0, width:kCircleHeightBackground, height:kCircleHeightBackground))
     var circleView = UIView()
     var circleIconView : UIView?
-    var duration: TimeInterval!
-    var durationStatusTimer: Timer!
-    var durationTimer: Timer!
+    var timeout: TimeInterval?
+    var showTimeoutTimer: Timer?
+    var timeoutTimer: Timer?
     var dismissBlock : DismissBlock?
     fileprivate var inputs = [UITextField]()
     fileprivate var input = [UITextView]()
@@ -448,8 +458,8 @@ open class SCLAlertView: UIViewController {
     }
     
     @discardableResult
-    open func addButton(_ title:String, backgroundColor:UIColor? = nil, textColor:UIColor? = nil, showDurationStatus:Bool=false, action:@escaping ()->Void)->SCLButton {
-        let btn = addButton(title, backgroundColor: backgroundColor, textColor: textColor, showDurationStatus: showDurationStatus)
+    open func addButton(_ title:String, backgroundColor:UIColor? = nil, textColor:UIColor? = nil, showTimeout:SCLButton.ShowTimeoutConfiguration? = nil, action:@escaping ()->Void)->SCLButton {
+        let btn = addButton(title, backgroundColor: backgroundColor, textColor: textColor, showTimeout: showTimeout)
         btn.actionType = SCLActionType.closure
         btn.action = action
         btn.addTarget(self, action:#selector(SCLAlertView.buttonTapped(_:)), for:.touchUpInside)
@@ -459,8 +469,8 @@ open class SCLAlertView: UIViewController {
     }
     
     @discardableResult
-    open func addButton(_ title:String, backgroundColor:UIColor? = nil, textColor:UIColor? = nil, showDurationStatus:Bool = false, target:AnyObject, selector:Selector)->SCLButton {
-        let btn = addButton(title, backgroundColor: backgroundColor, textColor: textColor, showDurationStatus: showDurationStatus)
+    open func addButton(_ title:String, backgroundColor:UIColor? = nil, textColor:UIColor? = nil, showTimeout:SCLButton.ShowTimeoutConfiguration? = nil, target:AnyObject, selector:Selector)->SCLButton {
+        let btn = addButton(title, backgroundColor: backgroundColor, textColor: textColor, showTimeout: showTimeout)
         btn.actionType = SCLActionType.selector
         btn.target = target
         btn.selector = selector
@@ -471,7 +481,7 @@ open class SCLAlertView: UIViewController {
     }
     
     @discardableResult
-    fileprivate func addButton(_ title:String, backgroundColor:UIColor? = nil, textColor:UIColor? = nil, showDurationStatus:Bool=false)->SCLButton {
+    fileprivate func addButton(_ title:String, backgroundColor:UIColor? = nil, textColor:UIColor? = nil, showTimeout:SCLButton.ShowTimeoutConfiguration? = nil)->SCLButton {
         // Update view height
         appearance.setkWindowHeight(appearance.kWindowHeight + appearance.kButtonHeight)
         // Add button
@@ -482,7 +492,7 @@ open class SCLAlertView: UIViewController {
         btn.customBackgroundColor = backgroundColor
         btn.customTextColor = textColor
         btn.initialTitle = title
-        btn.showDurationStatus = showDurationStatus
+        btn.showTimeout = showTimeout
         contentView.addSubview(btn)
         buttons.append(btn)
         return btn
@@ -571,7 +581,7 @@ open class SCLAlertView: UIViewController {
     
     // showCustom(view, title, subTitle, UIColor, UIImage)
     @discardableResult
-    open func showCustom(_ title: String, subTitle: String, color: UIColor, icon: UIImage, closeButtonTitle:String?=nil, duration:TimeInterval=0.0, colorStyle: UInt=SCLAlertViewStyle.success.defaultColorInt, colorTextButton: UInt=0xFFFFFF, circleIconImage: UIImage? = nil, animationStyle: SCLAnimationStyle = .topToBottom) -> SCLAlertViewResponder {
+    open func showCustom(_ title: String, subTitle: String, color: UIColor, icon: UIImage, closeButtonTitle:String?=nil, timeout:TimeInterval?=nil, colorStyle: UInt=SCLAlertViewStyle.success.defaultColorInt, colorTextButton: UInt=0xFFFFFF, circleIconImage: UIImage? = nil, animationStyle: SCLAnimationStyle = .topToBottom) -> SCLAlertViewResponder {
         
         
         var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
@@ -585,60 +595,60 @@ open class SCLAlertView: UIViewController {
         
         let colorAsUInt = UInt(colorAsUInt32)
         
-        return showTitle(title, subTitle: subTitle, duration: duration, completeText:closeButtonTitle, style: .success, colorStyle: colorAsUInt, colorTextButton: colorTextButton, circleIconImage: icon, animationStyle: animationStyle)
+        return showTitle(title, subTitle: subTitle, timeout: timeout, completeText:closeButtonTitle, style: .success, colorStyle: colorAsUInt, colorTextButton: colorTextButton, circleIconImage: icon, animationStyle: animationStyle)
     }
     
     // showSuccess(view, title, subTitle)
     @discardableResult
-    open func showSuccess(_ title: String, subTitle: String, closeButtonTitle:String?=nil, duration:TimeInterval=0.0, colorStyle: UInt=SCLAlertViewStyle.success.defaultColorInt, colorTextButton: UInt=0xFFFFFF, circleIconImage: UIImage? = nil, animationStyle: SCLAnimationStyle = .topToBottom) -> SCLAlertViewResponder {
-        return showTitle(title, subTitle: subTitle, duration: duration, completeText:closeButtonTitle, style: .success, colorStyle: colorStyle, colorTextButton: colorTextButton, circleIconImage: circleIconImage, animationStyle: animationStyle)
+    open func showSuccess(_ title: String, subTitle: String, closeButtonTitle:String?=nil, timeout:TimeInterval?=nil, colorStyle: UInt=SCLAlertViewStyle.success.defaultColorInt, colorTextButton: UInt=0xFFFFFF, circleIconImage: UIImage? = nil, animationStyle: SCLAnimationStyle = .topToBottom) -> SCLAlertViewResponder {
+        return showTitle(title, subTitle: subTitle, timeout: timeout, completeText:closeButtonTitle, style: .success, colorStyle: colorStyle, colorTextButton: colorTextButton, circleIconImage: circleIconImage, animationStyle: animationStyle)
     }
     
     // showError(view, title, subTitle)
     @discardableResult
-    open func showError(_ title: String, subTitle: String, closeButtonTitle:String?=nil, duration:TimeInterval=0.0, colorStyle: UInt=SCLAlertViewStyle.error.defaultColorInt, colorTextButton: UInt=0xFFFFFF, circleIconImage: UIImage? = nil, animationStyle: SCLAnimationStyle = .topToBottom) -> SCLAlertViewResponder {
-        return showTitle(title, subTitle: subTitle, duration: duration, completeText:closeButtonTitle, style: .error, colorStyle: colorStyle, colorTextButton: colorTextButton, circleIconImage: circleIconImage, animationStyle: animationStyle)
+    open func showError(_ title: String, subTitle: String, closeButtonTitle:String?=nil, timeout:TimeInterval?=nil, colorStyle: UInt=SCLAlertViewStyle.error.defaultColorInt, colorTextButton: UInt=0xFFFFFF, circleIconImage: UIImage? = nil, animationStyle: SCLAnimationStyle = .topToBottom) -> SCLAlertViewResponder {
+        return showTitle(title, subTitle: subTitle, timeout: timeout, completeText:closeButtonTitle, style: .error, colorStyle: colorStyle, colorTextButton: colorTextButton, circleIconImage: circleIconImage, animationStyle: animationStyle)
     }
     
     // showNotice(view, title, subTitle)
     @discardableResult
-    open func showNotice(_ title: String, subTitle: String, closeButtonTitle:String?=nil, duration:TimeInterval=0.0, colorStyle: UInt=SCLAlertViewStyle.notice.defaultColorInt, colorTextButton: UInt=0xFFFFFF, circleIconImage: UIImage? = nil, animationStyle: SCLAnimationStyle = .topToBottom) -> SCLAlertViewResponder {
-        return showTitle(title, subTitle: subTitle, duration: duration, completeText:closeButtonTitle, style: .notice, colorStyle: colorStyle, colorTextButton: colorTextButton, circleIconImage: circleIconImage, animationStyle: animationStyle)
+    open func showNotice(_ title: String, subTitle: String, closeButtonTitle:String?=nil, timeout:TimeInterval?=nil, colorStyle: UInt=SCLAlertViewStyle.notice.defaultColorInt, colorTextButton: UInt=0xFFFFFF, circleIconImage: UIImage? = nil, animationStyle: SCLAnimationStyle = .topToBottom) -> SCLAlertViewResponder {
+        return showTitle(title, subTitle: subTitle, timeout: timeout, completeText:closeButtonTitle, style: .notice, colorStyle: colorStyle, colorTextButton: colorTextButton, circleIconImage: circleIconImage, animationStyle: animationStyle)
     }
     
     // showWarning(view, title, subTitle)
     @discardableResult
-    open func showWarning(_ title: String, subTitle: String, closeButtonTitle:String?=nil, duration:TimeInterval=0.0, colorStyle: UInt=SCLAlertViewStyle.warning.defaultColorInt, colorTextButton: UInt=0x000000, circleIconImage: UIImage? = nil, animationStyle: SCLAnimationStyle = .topToBottom) -> SCLAlertViewResponder {
-        return showTitle(title, subTitle: subTitle, duration: duration, completeText:closeButtonTitle, style: .warning, colorStyle: colorStyle, colorTextButton: colorTextButton, circleIconImage: circleIconImage, animationStyle: animationStyle)
+    open func showWarning(_ title: String, subTitle: String, closeButtonTitle:String?=nil, timeout:TimeInterval?=nil, colorStyle: UInt=SCLAlertViewStyle.warning.defaultColorInt, colorTextButton: UInt=0x000000, circleIconImage: UIImage? = nil, animationStyle: SCLAnimationStyle = .topToBottom) -> SCLAlertViewResponder {
+        return showTitle(title, subTitle: subTitle, timeout: timeout, completeText:closeButtonTitle, style: .warning, colorStyle: colorStyle, colorTextButton: colorTextButton, circleIconImage: circleIconImage, animationStyle: animationStyle)
     }
     
     // showInfo(view, title, subTitle)
     @discardableResult
-    open func showInfo(_ title: String, subTitle: String, closeButtonTitle:String?=nil, duration:TimeInterval=0.0, colorStyle: UInt=SCLAlertViewStyle.info.defaultColorInt, colorTextButton: UInt=0xFFFFFF, circleIconImage: UIImage? = nil, animationStyle: SCLAnimationStyle = .topToBottom) -> SCLAlertViewResponder {
-        return showTitle(title, subTitle: subTitle, duration: duration, completeText:closeButtonTitle, style: .info, colorStyle: colorStyle, colorTextButton: colorTextButton, circleIconImage: circleIconImage, animationStyle: animationStyle)
+    open func showInfo(_ title: String, subTitle: String, closeButtonTitle:String?=nil, timeout:TimeInterval?=nil, colorStyle: UInt=SCLAlertViewStyle.info.defaultColorInt, colorTextButton: UInt=0xFFFFFF, circleIconImage: UIImage? = nil, animationStyle: SCLAnimationStyle = .topToBottom) -> SCLAlertViewResponder {
+        return showTitle(title, subTitle: subTitle, timeout: timeout, completeText:closeButtonTitle, style: .info, colorStyle: colorStyle, colorTextButton: colorTextButton, circleIconImage: circleIconImage, animationStyle: animationStyle)
     }
     
     // showWait(view, title, subTitle)
     @discardableResult
-    open func showWait(_ title: String, subTitle: String, closeButtonTitle:String?=nil, duration:TimeInterval=0.0, colorStyle: UInt?=SCLAlertViewStyle.wait.defaultColorInt, colorTextButton: UInt=0xFFFFFF, circleIconImage: UIImage? = nil, animationStyle: SCLAnimationStyle = .topToBottom) -> SCLAlertViewResponder {
-        return showTitle(title, subTitle: subTitle, duration: duration, completeText:closeButtonTitle, style: .wait, colorStyle: colorStyle, colorTextButton: colorTextButton, circleIconImage: circleIconImage, animationStyle: animationStyle)
+    open func showWait(_ title: String, subTitle: String, closeButtonTitle:String?=nil, timeout:TimeInterval?=nil, colorStyle: UInt?=SCLAlertViewStyle.wait.defaultColorInt, colorTextButton: UInt=0xFFFFFF, circleIconImage: UIImage? = nil, animationStyle: SCLAnimationStyle = .topToBottom) -> SCLAlertViewResponder {
+        return showTitle(title, subTitle: subTitle, timeout: timeout, completeText:closeButtonTitle, style: .wait, colorStyle: colorStyle, colorTextButton: colorTextButton, circleIconImage: circleIconImage, animationStyle: animationStyle)
     }
     
     @discardableResult
-    open func showEdit(_ title: String, subTitle: String, closeButtonTitle:String?=nil, duration:TimeInterval=0.0, colorStyle: UInt=SCLAlertViewStyle.edit.defaultColorInt, colorTextButton: UInt=0xFFFFFF, circleIconImage: UIImage? = nil, animationStyle: SCLAnimationStyle = .topToBottom) -> SCLAlertViewResponder {
-        return showTitle(title, subTitle: subTitle, duration: duration, completeText:closeButtonTitle, style: .edit, colorStyle: colorStyle, colorTextButton: colorTextButton, circleIconImage: circleIconImage, animationStyle: animationStyle)
+    open func showEdit(_ title: String, subTitle: String, closeButtonTitle:String?=nil, timeout:TimeInterval?=nil, colorStyle: UInt=SCLAlertViewStyle.edit.defaultColorInt, colorTextButton: UInt=0xFFFFFF, circleIconImage: UIImage? = nil, animationStyle: SCLAnimationStyle = .topToBottom) -> SCLAlertViewResponder {
+        return showTitle(title, subTitle: subTitle, timeout: timeout, completeText:closeButtonTitle, style: .edit, colorStyle: colorStyle, colorTextButton: colorTextButton, circleIconImage: circleIconImage, animationStyle: animationStyle)
     }
     
     // showTitle(view, title, subTitle, style)
     @discardableResult
-    open func showTitle(_ title: String, subTitle: String, style: SCLAlertViewStyle, closeButtonTitle:String?=nil, duration:TimeInterval=0.0, colorStyle: UInt?=0x000000, colorTextButton: UInt=0xFFFFFF, circleIconImage: UIImage? = nil, animationStyle: SCLAnimationStyle = .topToBottom) -> SCLAlertViewResponder {
+    open func showTitle(_ title: String, subTitle: String, style: SCLAlertViewStyle, closeButtonTitle:String?=nil, timeout:TimeInterval?=nil, colorStyle: UInt?=0x000000, colorTextButton: UInt=0xFFFFFF, circleIconImage: UIImage? = nil, animationStyle: SCLAnimationStyle = .topToBottom) -> SCLAlertViewResponder {
         
-        return showTitle(title, subTitle: subTitle, duration:duration, completeText:closeButtonTitle, style: style, colorStyle: colorStyle, colorTextButton: colorTextButton, circleIconImage: circleIconImage, animationStyle: animationStyle)
+        return showTitle(title, subTitle: subTitle, timeout:timeout, completeText:closeButtonTitle, style: style, colorStyle: colorStyle, colorTextButton: colorTextButton, circleIconImage: circleIconImage, animationStyle: animationStyle)
     }
     
-    // showTitle(view, title, subTitle, duration, style)
+    // showTitle(view, title, subTitle, timeout, style)
     @discardableResult
-    open func showTitle(_ title: String, subTitle: String, duration: TimeInterval?, completeText: String?, style: SCLAlertViewStyle, colorStyle: UInt?=0x000000, colorTextButton: UInt?=0xFFFFFF, circleIconImage: UIImage? = nil, animationStyle: SCLAnimationStyle = .topToBottom) -> SCLAlertViewResponder {
+    open func showTitle(_ title: String, subTitle: String, timeout: TimeInterval?, completeText: String?, style: SCLAlertViewStyle, colorStyle: UInt?=0x000000, colorTextButton: UInt?=0xFFFFFF, circleIconImage: UIImage? = nil, animationStyle: SCLAnimationStyle = .topToBottom) -> SCLAlertViewResponder {
         selfReference = self
         view.alpha = 0
         let rv = UIApplication.shared.keyWindow! as UIWindow
@@ -764,13 +774,13 @@ open class SCLAlertView: UIViewController {
             }
         }
         
-        // Adding duration
-        if duration > 0 {
-            self.duration = duration
-            durationTimer?.invalidate()
-            durationTimer = Timer.scheduledTimer(timeInterval: self.duration, target: self, selector: #selector(SCLAlertView.hideView), userInfo: nil, repeats: false)
-            durationStatusTimer?.invalidate()
-            durationStatusTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(SCLAlertView.updateDurationStatus), userInfo: nil, repeats: true)
+        // Adding timeout
+        if let timeout = timeout {
+            self.timeout = timeout
+            timeoutTimer?.invalidate()
+            timeoutTimer = Timer.scheduledTimer(timeInterval: timeout, target: self, selector: #selector(SCLAlertView.hideView), userInfo: nil, repeats: false)
+            showTimeoutTimer?.invalidate()
+            showTimeoutTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(SCLAlertView.updateShowTimeout), userInfo: nil, repeats: true)
         }
         
         // Animate in the alert view
@@ -847,12 +857,25 @@ open class SCLAlertView: UIViewController {
     }
     
     //
-    open func updateDurationStatus() {
-        duration = duration.advanced(by: -1)
-        for btn in buttons.filter({$0.showDurationStatus}) {
-            let txt = String(btn.initialTitle) + " " + String(Int(duration))
-            btn.setTitle(txt, for: UIControlState())
+    open func updateShowTimeout() {
+        
+        guard let timeout = self.timeout else {
+            return
         }
+        
+        self.timeout = timeout.advanced(by: -1)
+        
+        for btn in buttons {
+            guard let showTimeout = btn.showTimeout else {
+                continue
+            }
+
+            let timeoutStr: String = showTimeout.prefix + String(Int(timeout)) + showTimeout.suffix
+            let txt = String(btn.initialTitle) + " " + timeoutStr
+            btn.setTitle(txt, for: UIControlState())
+            
+        }
+
     }
     
     // Close SCLAlertView
@@ -861,10 +884,11 @@ open class SCLAlertView: UIViewController {
             self.view.alpha = 0
             }, completion: { finished in
                 
-                //Stop durationTimer so alertView does not attempt to hide itself and fire it's dimiss block a second time when close button is tapped
-                self.durationTimer?.invalidate()
+                //Stop timeoutTimer so alertView does not attempt to hide itself and fire it's dimiss block a second time when close button is tapped
+                self.timeoutTimer?.invalidate()
+                
                 // Stop StatusTimer
-                self.durationStatusTimer?.invalidate()
+                self.showTimeoutTimer?.invalidate()
                 
                 if(self.dismissBlock != nil) {
                     // Call completion handler when the alert is dismissed
@@ -1123,9 +1147,9 @@ class SCLAlertViewStyleKit : NSObject {
     
     class func drawQuestion() {
         // Color Declarations
-        var color = UIColor(red: CGFloat(1.0), green: CGFloat(1.0), blue: CGFloat(1.0), alpha: CGFloat(1.0))
+        let color = UIColor(red: CGFloat(1.0), green: CGFloat(1.0), blue: CGFloat(1.0), alpha: CGFloat(1.0))
         // Questionmark Shape Drawing
-        var questionShapePath = UIBezierPath()
+        let questionShapePath = UIBezierPath()
         questionShapePath.move(to: CGPoint(x: CGFloat(33.75), y: CGFloat(54.1)))
         questionShapePath.addLine(to: CGPoint(x: CGFloat(44.15), y: CGFloat(54.1)))
         questionShapePath.addLine(to: CGPoint(x: CGFloat(44.15), y: CGFloat(47.5)))
