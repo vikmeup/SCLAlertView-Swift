@@ -77,7 +77,7 @@ let alert = SCLAlertView(appearance: appearance)
 let alertView = SCLAlertView()
 alertView.addButton("First Button", target:self, selector:Selector("firstButton"))
 alertView.addButton("Second Button") {
-    println("Second button tapped")
+    print("Second button tapped")
 }
 alertView.showSuccess("Button View", subTitle: "This alert view has buttons")
 ```
@@ -222,6 +222,7 @@ kWindowHeight: CGFloat
 shouldAutoDismiss: Bool // Set this false to 'Disable' Auto hideView when SCLButton is tapped
 fieldCornerRadius : CGFloat
 contentViewCornerRadius : CGFloat
+disableTapGesture: Bool // set this to true if adding tableview to subView
 ```
 
 
@@ -229,7 +230,7 @@ contentViewCornerRadius : CGFloat
 
 ```swift
 enum SCLAlertViewStyle: Int {
-    case Success, Error, Notice, Warning, Info, Edit, Wait
+    case success, error, notice, warning, info, edit, wait, question
 }
 ```
 
@@ -239,7 +240,7 @@ enum SCLAlertViewStyle: Int {
 ```swift
 // Animation Styles
 public enum SCLAnimationStyle {
-    case NoAnimation, TopToBottom, BottomToTop, LeftToRight, RightToLeft
+    case noAnimation, topToBottom, bottomToTop, leftToRight, rightToLeft
 }
 ```
 
