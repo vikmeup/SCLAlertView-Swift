@@ -146,11 +146,11 @@ class SCLAlertViewPropertiesTests: XCTestCase {
         }
     }
     
-    func testSCLAlertViewDurationTimer() {
-        if let timer = alert.durationTimer {
+    func testSCLAlertViewTimeoutTimer() {
+        if let timer = alert.timeoutTimer {
             XCTAssertTrue(timer.isKind(of:Timer.self))
         }else {
-            XCTAssertTrue(alert.durationTimer == nil)
+            XCTAssertTrue(alert.timeoutTimer == nil)
         }
     }
 }
