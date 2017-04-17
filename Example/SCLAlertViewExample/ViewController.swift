@@ -119,7 +119,12 @@ class ViewController: UIViewController {
             print("Timeout Button tapped")
         }
 
-        _ = alert.showInfo("Login", subTitle: "", timeout: 10)
+        let timeoutValue: TimeInterval = 10.0
+        let timeoutAction: SCLAlertView.SCLTimeoutConfiguration.ActionType = {
+            print("Timeout occured")
+        }
+        
+        _ = alert.showInfo("Login", subTitle: "", timeout: SCLAlertView.SCLTimeoutConfiguration(timeoutValue: timeoutValue, timeoutAction: timeoutAction))
     }
     
     @IBAction func showCustomAlert(_ sender: AnyObject) {
