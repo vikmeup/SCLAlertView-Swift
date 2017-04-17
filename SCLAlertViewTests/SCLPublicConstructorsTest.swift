@@ -23,7 +23,8 @@ class SCLPublicConstructorsTest: XCTestCase {
     func testShowSuccess() {
         let image = UIImage()
         let alert = SCLAlertView()
-        let successReturn = alert.showSuccess("testTitle", subTitle: "testSubTitle", closeButtonTitle: "testClosebutton", timeout: 1.0, colorStyle: 1, colorTextButton: 1, circleIconImage: image)
+        let timeout = SCLAlertView.SCLTimeoutConfiguration(timeoutValue: 1.0, timeoutAction: { print("Timeout occurred")})
+        let successReturn = alert.showSuccess("testTitle", subTitle: "testSubTitle", closeButtonTitle: "testClosebutton", timeout: timeout, colorStyle: 1, colorTextButton: 1, circleIconImage: image)
         XCTAssertNotNil(successReturn)
     }
 

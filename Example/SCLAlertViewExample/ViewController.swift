@@ -121,7 +121,7 @@ class ViewController: UIViewController {
 
         let timeoutValue: TimeInterval = 10.0
         let timeoutAction: SCLAlertView.SCLTimeoutConfiguration.ActionType = {
-            print("Timeout occured")
+            print("Timeout occurred")
         }
         
         _ = alert.showInfo("Login", subTitle: "", timeout: SCLAlertView.SCLTimeoutConfiguration(timeoutValue: timeoutValue, timeoutAction: timeoutAction))
