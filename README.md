@@ -192,7 +192,7 @@ alert.showInfo("Login", subTitle: "", duration: 10)
 
 #### List of properties to customize
 
-````swift
+```swift
 // Button 
 kButtonFont: UIFont                     
 buttonCornerRadius : CGFloat            
