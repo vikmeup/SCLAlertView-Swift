@@ -129,6 +129,8 @@ open class SCLAlertViewResponder {
 }
 
 let kCircleHeightBackground: CGFloat = 62.0
+let uniqueTag: Int = Int(arc4random())
+let uniqueAccessibilityIdentifier: String = "SCLAlertView"
 
 public typealias DismissBlock = () -> Void
 
@@ -669,6 +671,8 @@ open class SCLAlertView: UIViewController {
     open func showTitle(_ title: String, subTitle: String, timeout: SCLTimeoutConfiguration?, completeText: String?, style: SCLAlertViewStyle, colorStyle: UInt?=0x000000, colorTextButton: UInt?=0xFFFFFF, circleIconImage: UIImage? = nil, animationStyle: SCLAnimationStyle = .topToBottom) -> SCLAlertViewResponder {
         selfReference = self
         view.alpha = 0
+        view.tag = uniqueTag
+        view.accessibilityIdentifier = uniqueAccessibilityIdentifier
         let rv = UIApplication.shared.keyWindow! as UIWindow
         rv.addSubview(view)
         view.frame = rv.bounds
@@ -936,6 +940,18 @@ open class SCLAlertView: UIViewController {
         } else {
             return defaultImage
         }
+    }
+    
+    //Return true if a SCLAlertView is already being shown, false otherwise
+    open func isShowing() -> Bool {
+        if let subviews = UIApplication.shared.keyWindow?.subviews {
+            for view in subviews {
+                if view.tag == uniqueTag && view.accessibilityIdentifier == uniqueAccessibilityIdentifier {
+                    return true
+                }
+            }
+        }
+        return false
     }
 }
 
