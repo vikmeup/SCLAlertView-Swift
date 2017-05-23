@@ -64,7 +64,7 @@ class ViewController: UIViewController {
         let alert = SCLAlertView(appearance: appearance)
 		let txt = alert.addTextField("Enter your name")
         _ = alert.addButton("Show Name") {
-			print("Text value: \(txt.text)")
+			print("Text value: \(txt.text ?? "NA")")
 		}
 		_ = alert.showEdit(kInfoTitle, subTitle:kSubtitle)
 	}
