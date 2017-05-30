@@ -248,11 +248,19 @@ public enum SCLAnimationStyle {
 Installation
 ---
 
-SCLAlertView is available through [CocoaPods](http://cocoapods.org).
+SCLAlertView is available through 
+
+### [CocoaPods](http://cocoapods.org)
 
 To install add the following line to your Podfile:
 
     pod 'SCLAlertView'
+
+### [Carthage](https://github.com/Carthage/Carthage)
+
+To install add the following line to your Cartfile:
+
+`github "vikmeup/SCLAlertView-Swift" "master"`
 
 Collaboration
 ---
