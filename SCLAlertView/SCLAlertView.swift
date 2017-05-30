@@ -129,7 +129,7 @@ open class SCLAlertViewResponder {
 }
 
 let kCircleHeightBackground: CGFloat = 62.0
-let uniqueTag: Int = Int(arc4random() % UInt32.max)
+let uniqueTag: Int = Int(arc4random() % UInt32(Int32.max))
 let uniqueAccessibilityIdentifier: String = "SCLAlertView"
 
 public typealias DismissBlock = () -> Void
