@@ -124,7 +124,7 @@ public typealias DismissBlock = () -> Void
 
 // The Main Class
 open class SCLAlertView: UIViewController {
-    static let defaultMargin: CGFloat = 12.0
+    public static let defaultMargin: CGFloat = 12.0
 
     public struct SCLAppearance {
         let kDefaultShadowOpacity: CGFloat
