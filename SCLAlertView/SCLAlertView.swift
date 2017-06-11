@@ -347,6 +347,7 @@ open class SCLAlertView: UIViewController {
         view.frame.size = sz
 
         let hMargin: CGFloat = 12
+        let defaultTopOffset: CGFloat = 32
 
         // get actual height of title text
         var titleActualHeight: CGFloat = 0
@@ -359,7 +360,7 @@ open class SCLAlertView: UIViewController {
         // computing the right size to use for the textView
         let maxHeight = sz.height - 100 // max overall height
         var consumedHeight = CGFloat(0)
-        consumedHeight += (titleActualHeight > 0 ? appearance.kTitleTop + titleActualHeight : hMargin)
+        consumedHeight += (titleActualHeight > 0 ? appearance.kTitleTop + titleActualHeight : defaultTopOffset)
         consumedHeight += 14
         consumedHeight += appearance.kButtonHeight * CGFloat(buttons.count)
         consumedHeight += appearance.kTextFieldHeight * CGFloat(inputs.count)
@@ -402,7 +403,7 @@ open class SCLAlertView: UIViewController {
         labelTitle.frame = labelTitle.frame.offsetBy(dx: 0, dy: titleOffset)
         
         // Subtitle
-        y = titleActualHeight > 0 ? appearance.kTitleTop + titleActualHeight + titleOffset : hMargin
+        y = titleActualHeight > 0 ? appearance.kTitleTop + titleActualHeight + titleOffset : defaultTopOffset
         viewText.frame = CGRect(x:hMargin, y:y, width: appearance.kWindowWidth - hMargin * 2, height:appearance.kTextHeight)
         viewText.frame = CGRect(x:hMargin, y:y, width: viewTextWidth, height:viewTextHeight)
         // Text fields
