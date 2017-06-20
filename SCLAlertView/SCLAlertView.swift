@@ -372,8 +372,6 @@ open class SCLAlertView: UIViewController {
         } else {
             consumedHeight += appearance.kButtonHeight
         }
-        
-        consumedHeight += appearance.kButtonHeight * CGFloat(buttons.count)
         consumedHeight += appearance.kTextFieldHeight * CGFloat(inputs.count)
         consumedHeight += appearance.kTextViewdHeight * CGFloat(input.count)
         let maxViewTextHeight = maxHeight - consumedHeight
