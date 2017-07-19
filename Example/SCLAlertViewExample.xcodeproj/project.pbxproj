@@ -219,8 +219,9 @@
 				TargetAttributes = {
 					CEABB2401942AD9700FCB13C = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = 99AHAA343Q;
 						LastSwiftMigration = 0800;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					CEABB2541942AD9700FCB13C = {
 						CreatedOnToolsVersion = 6.0;
@@ -419,7 +420,8 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 99AHAA343Q;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = SCLAlertViewExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -438,7 +440,8 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 99AHAA343Q;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = SCLAlertViewExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
