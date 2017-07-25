@@ -324,6 +324,7 @@ open class SCLAlertView: UIViewController {
         labelTitle.frame = CGRect(x:12, y:appearance.kTitleTop, width: appearance.kWindowWidth - 24, height:appearance.kTitleHeight)
         // View text
         viewText.isEditable = false
+        viewText.isSelectable = false
         viewText.textAlignment = .center
         viewText.textContainerInset = UIEdgeInsets.zero
         viewText.textContainer.lineFragmentPadding = 0;
@@ -477,6 +478,7 @@ open class SCLAlertView: UIViewController {
         txt.font = appearance.kTextFont
         txt.autocapitalizationType = UITextAutocapitalizationType.words
         txt.clearButtonMode = UITextFieldViewMode.whileEditing
+        
         txt.layer.masksToBounds = true
         txt.layer.borderWidth = 1.0
         if title != nil {
