@@ -148,7 +148,7 @@ class ViewController: UIViewController {
         _ = alert.showCustom("Custom Color", subTitle: "Custom color", color: color, icon: icon!)
     }
 	
-	func firstButton() {
+    @objc func firstButton() {
 		print("First button tapped")
 	}
 }
