@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ngj-nl-OHz">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ngj-nl-OHz">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -14,108 +18,108 @@
                         <viewControllerLayoutGuide type="bottom" id="OgA-QO-oN8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="7du-np-8iv">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uhe-aS-BHL">
-                                <rect key="frame" x="262" y="153" width="76" height="30"/>
+                                <rect key="frame" x="149" y="98" width="76" height="30"/>
                                 <state key="normal" title="Show Error">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="showError:" destination="ngj-nl-OHz" eventType="touchUpInside" id="LaV-fY-yjd"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dOp-SD-9bQ">
-                                <rect key="frame" x="257" y="203" width="87" height="30"/>
+                                <rect key="frame" x="145" y="148" width="87" height="30"/>
                                 <state key="normal" title="Show Notice">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="showNotice:" destination="ngj-nl-OHz" eventType="touchUpInside" id="72p-WQ-NeO"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VWR-vv-K1w">
-                                <rect key="frame" x="251" y="253" width="99" height="30"/>
+                                <rect key="frame" x="139" y="198" width="99" height="30"/>
                                 <state key="normal" title="Show Warning">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="showWarning:" destination="ngj-nl-OHz" eventType="touchUpInside" id="CW0-pU-Jcx"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ism-f4-jWc">
-                                <rect key="frame" x="267" y="303" width="68" height="30"/>
+                                <rect key="frame" x="155" y="248" width="68" height="30"/>
                                 <state key="normal" title="Show Info">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="showInfo:" destination="ngj-nl-OHz" eventType="touchUpInside" id="8gf-jf-8TH"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="arb-3g-Toj">
-                                <rect key="frame" x="250" y="103" width="100" height="30"/>
+                                <rect key="frame" x="138" y="48" width="100" height="30"/>
                                 <state key="normal" title="Show Success">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="showSuccess:" destination="ngj-nl-OHz" eventType="touchUpInside" id="Xuj-bW-sNI"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9bA-oa-lCU">
-                                <rect key="frame" x="222" y="391" width="157" height="30"/>
+                                <rect key="frame" x="109" y="336" width="157" height="30"/>
                                 <state key="normal" title="Show Custom Subview">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="showCustomSubview:" destination="ngj-nl-OHz" eventType="touchUpInside" id="exk-kY-yZm"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="McK-98-W7e">
-                                <rect key="frame" x="266" y="353" width="69" height="30"/>
+                                <rect key="frame" x="154" y="298" width="69" height="30"/>
                                 <state key="normal" title="Show Edit">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="showEdit:" destination="ngj-nl-OHz" eventType="touchUpInside" id="Cce-Yv-6Q3"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ioy-Wh-g2g">
-                                <rect key="frame" x="234" y="437" width="132" height="30"/>
+                                <rect key="frame" x="122" y="382" width="132" height="30"/>
                                 <state key="normal" title="Show Custom Alert"/>
                                 <connections>
                                     <action selector="showCustomAlert:" destination="ngj-nl-OHz" eventType="touchUpInside" id="mOn-fE-qni"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vNx-WJ-9Aj">
+                                <rect key="frame" x="151" y="425" width="72" height="30"/>
+                                <state key="normal" title="Show Wait"/>
+                                <connections>
+                                    <action selector="showWait:" destination="ngj-nl-OHz" eventType="touchUpInside" id="yeJ-0I-7pX"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="9bA-oa-lCU" firstAttribute="centerX" secondItem="7du-np-8iv" secondAttribute="centerX" id="0BR-Pb-lMH"/>
-                            <constraint firstItem="McK-98-W7e" firstAttribute="centerX" secondItem="arb-3g-Toj" secondAttribute="centerX" constant="0.5" id="6if-Ab-Hmf"/>
-                            <constraint firstAttribute="centerX" secondItem="arb-3g-Toj" secondAttribute="centerX" id="6vH-HH-HK4"/>
-                            <constraint firstItem="arb-3g-Toj" firstAttribute="top" secondItem="G4y-kv-ZRs" secondAttribute="bottom" constant="83" id="7Lm-Sx-HKe"/>
-                            <constraint firstItem="McK-98-W7e" firstAttribute="top" secondItem="ism-f4-jWc" secondAttribute="bottom" constant="20" id="BXA-QC-rg1"/>
-                            <constraint firstItem="Uhe-aS-BHL" firstAttribute="top" secondItem="arb-3g-Toj" secondAttribute="bottom" constant="20" id="Eae-gx-wZ6"/>
-                            <constraint firstItem="VWR-vv-K1w" firstAttribute="top" secondItem="dOp-SD-9bQ" secondAttribute="bottom" constant="20" id="GFG-rg-pZM"/>
-                            <constraint firstAttribute="centerX" secondItem="Uhe-aS-BHL" secondAttribute="centerX" constant="0.5" id="JiZ-Sr-LRZ"/>
-                            <constraint firstItem="McK-98-W7e" firstAttribute="centerY" secondItem="arb-3g-Toj" secondAttribute="centerY" constant="258" id="Olk-US-7Qt"/>
-                            <constraint firstItem="VWR-vv-K1w" firstAttribute="centerX" secondItem="dOp-SD-9bQ" secondAttribute="centerX" id="R9D-mp-DSX"/>
-                            <constraint firstItem="ioy-Wh-g2g" firstAttribute="centerX" secondItem="7du-np-8iv" secondAttribute="centerX" id="TJm-hW-AWH"/>
-                            <constraint firstItem="arb-3g-Toj" firstAttribute="centerX" secondItem="G4y-kv-ZRs" secondAttribute="centerX" id="am6-Lr-rTd"/>
-                            <constraint firstItem="VWR-vv-K1w" firstAttribute="centerX" secondItem="ism-f4-jWc" secondAttribute="centerX" id="fku-3F-Xme"/>
-                            <constraint firstItem="9bA-oa-lCU" firstAttribute="top" secondItem="McK-98-W7e" secondAttribute="bottom" constant="8" id="fph-BA-FU4"/>
-                            <constraint firstItem="dOp-SD-9bQ" firstAttribute="centerX" secondItem="arb-3g-Toj" secondAttribute="centerX" id="gPO-a1-Hre"/>
-                            <constraint firstItem="McK-98-W7e" firstAttribute="leading" secondItem="ism-f4-jWc" secondAttribute="leading" id="kzA-aj-lPP"/>
-                            <constraint firstItem="ism-f4-jWc" firstAttribute="top" secondItem="VWR-vv-K1w" secondAttribute="bottom" constant="20" id="m91-r8-IcB"/>
-                            <constraint firstItem="dOp-SD-9bQ" firstAttribute="top" secondItem="Uhe-aS-BHL" secondAttribute="bottom" constant="20" id="rWX-S4-YjF"/>
-                            <constraint firstItem="ioy-Wh-g2g" firstAttribute="top" secondItem="9bA-oa-lCU" secondAttribute="bottom" constant="16" id="wfc-Ch-5d6"/>
+                            <constraint firstItem="9bA-oa-lCU" firstAttribute="top" secondItem="McK-98-W7e" secondAttribute="bottom" constant="8" symbolic="YES" id="8Dc-uX-Q9g"/>
+                            <constraint firstItem="dOp-SD-9bQ" firstAttribute="top" secondItem="Uhe-aS-BHL" secondAttribute="bottom" constant="20" id="95e-72-36x"/>
+                            <constraint firstItem="Uhe-aS-BHL" firstAttribute="top" secondItem="arb-3g-Toj" secondAttribute="bottom" constant="20" id="9yx-4e-OH3"/>
+                            <constraint firstItem="dOp-SD-9bQ" firstAttribute="centerX" secondItem="VWR-vv-K1w" secondAttribute="centerX" id="AK0-yj-iv9"/>
+                            <constraint firstItem="vNx-WJ-9Aj" firstAttribute="top" secondItem="ioy-Wh-g2g" secondAttribute="bottom" constant="13" id="FZt-XP-zmr"/>
+                            <constraint firstItem="ioy-Wh-g2g" firstAttribute="top" secondItem="9bA-oa-lCU" secondAttribute="bottom" constant="16" id="GVd-tW-BVj"/>
+                            <constraint firstItem="McK-98-W7e" firstAttribute="trailing" secondItem="vNx-WJ-9Aj" secondAttribute="trailing" id="IaG-wO-oPb"/>
+                            <constraint firstItem="arb-3g-Toj" firstAttribute="trailing" secondItem="VWR-vv-K1w" secondAttribute="trailing" id="JHI-ny-epm"/>
+                            <constraint firstItem="ism-f4-jWc" firstAttribute="trailing" secondItem="McK-98-W7e" secondAttribute="trailing" id="LgV-oU-UcT"/>
+                            <constraint firstItem="McK-98-W7e" firstAttribute="centerX" secondItem="ioy-Wh-g2g" secondAttribute="centerX" id="P73-2C-aV2"/>
+                            <constraint firstItem="arb-3g-Toj" firstAttribute="top" secondItem="G4y-kv-ZRs" secondAttribute="bottom" constant="28" id="Pq8-Zw-JdC"/>
+                            <constraint firstItem="Uhe-aS-BHL" firstAttribute="centerX" secondItem="9bA-oa-lCU" secondAttribute="centerX" id="TRZ-qq-RMB"/>
+                            <constraint firstItem="McK-98-W7e" firstAttribute="top" secondItem="ism-f4-jWc" secondAttribute="bottom" constant="20" id="Xj7-GA-oeZ"/>
+                            <constraint firstItem="VWR-vv-K1w" firstAttribute="top" secondItem="dOp-SD-9bQ" secondAttribute="bottom" constant="20" id="Y87-Tq-ZFP"/>
+                            <constraint firstItem="Uhe-aS-BHL" firstAttribute="centerX" secondItem="7du-np-8iv" secondAttribute="centerX" id="bm2-HK-tHS"/>
+                            <constraint firstItem="ism-f4-jWc" firstAttribute="top" secondItem="VWR-vv-K1w" secondAttribute="bottom" constant="20" id="e5c-aS-UKJ"/>
+                            <constraint firstItem="VWR-vv-K1w" firstAttribute="centerX" secondItem="ism-f4-jWc" secondAttribute="centerX" id="fzP-gF-FZX"/>
+                            <constraint firstItem="9bA-oa-lCU" firstAttribute="centerX" secondItem="ioy-Wh-g2g" secondAttribute="centerX" id="szv-nf-S3c"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="Olk-US-7Qt"/>
-                                <exclude reference="kzA-aj-lPP"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="EvH-7P-4FD"/>
                     <value key="contentSizeForViewInPopover" type="size" width="480" height="640"/>

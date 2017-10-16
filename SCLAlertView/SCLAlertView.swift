@@ -175,10 +175,14 @@ open class SCLAlertView: UIViewController {
         var buttonCornerRadius : CGFloat
         var dynamicAnimatorActive : Bool
         var buttonsLayout: SCLAlertButtonLayout
+        
         // Actions
         var hideWhenBackgroundViewIsTapped: Bool
         
-        public init(kDefaultShadowOpacity: CGFloat = 0.7, kCircleTopPosition: CGFloat = 0.0, kCircleBackgroundTopPosition: CGFloat = 6.0, kCircleHeight: CGFloat = 56.0, kCircleIconHeight: CGFloat = 20.0, kTitleTop:CGFloat = 30.0, kTitleHeight:CGFloat = 25.0,  kWindowWidth: CGFloat = 240.0, kWindowHeight: CGFloat = 178.0, kTextHeight: CGFloat = 90.0, kTextFieldHeight: CGFloat = 45.0, kTextViewdHeight: CGFloat = 80.0, kButtonHeight: CGFloat = 45.0, kTitleFont: UIFont = UIFont.systemFont(ofSize: 20), kTitleMinimumScaleFactor: CGFloat = 1.0, kTextFont: UIFont = UIFont.systemFont(ofSize: 14), kButtonFont: UIFont = UIFont.boldSystemFont(ofSize: 14), showCloseButton: Bool = true, showCircularIcon: Bool = true, shouldAutoDismiss: Bool = true, contentViewCornerRadius: CGFloat = 5.0, fieldCornerRadius: CGFloat = 3.0, buttonCornerRadius: CGFloat = 3.0, hideWhenBackgroundViewIsTapped: Bool = false, circleBackgroundColor: UIColor = UIColor.white, contentViewColor: UIColor = UIColorFromRGB(0xFFFFFF), contentViewBorderColor: UIColor = UIColorFromRGB(0xCCCCCC), titleColor: UIColor = UIColorFromRGB(0x4D4D4D), dynamicAnimatorActive: Bool = false, disableTapGesture: Bool = false, buttonsLayout: SCLAlertButtonLayout = .vertical) {
+        // Activity indicator
+        var activityIndicatorStyle: UIActivityIndicatorViewStyle
+        
+        public init(kDefaultShadowOpacity: CGFloat = 0.7, kCircleTopPosition: CGFloat = 0.0, kCircleBackgroundTopPosition: CGFloat = 6.0, kCircleHeight: CGFloat = 56.0, kCircleIconHeight: CGFloat = 20.0, kTitleTop:CGFloat = 30.0, kTitleHeight:CGFloat = 25.0,  kWindowWidth: CGFloat = 240.0, kWindowHeight: CGFloat = 178.0, kTextHeight: CGFloat = 90.0, kTextFieldHeight: CGFloat = 45.0, kTextViewdHeight: CGFloat = 80.0, kButtonHeight: CGFloat = 45.0, kTitleFont: UIFont = UIFont.systemFont(ofSize: 20), kTitleMinimumScaleFactor: CGFloat = 1.0, kTextFont: UIFont = UIFont.systemFont(ofSize: 14), kButtonFont: UIFont = UIFont.boldSystemFont(ofSize: 14), showCloseButton: Bool = true, showCircularIcon: Bool = true, shouldAutoDismiss: Bool = true, contentViewCornerRadius: CGFloat = 5.0, fieldCornerRadius: CGFloat = 3.0, buttonCornerRadius: CGFloat = 3.0, hideWhenBackgroundViewIsTapped: Bool = false, circleBackgroundColor: UIColor = UIColor.white, contentViewColor: UIColor = UIColorFromRGB(0xFFFFFF), contentViewBorderColor: UIColor = UIColorFromRGB(0xCCCCCC), titleColor: UIColor = UIColorFromRGB(0x4D4D4D), dynamicAnimatorActive: Bool = false, disableTapGesture: Bool = false, buttonsLayout: SCLAlertButtonLayout = .vertical, activityIndicatorStyle: UIActivityIndicatorViewStyle = .white) {
             
             self.kDefaultShadowOpacity = kDefaultShadowOpacity
             self.kCircleTopPosition = kCircleTopPosition
@@ -214,6 +218,8 @@ open class SCLAlertView: UIViewController {
             self.hideWhenBackgroundViewIsTapped = hideWhenBackgroundViewIsTapped
             self.dynamicAnimatorActive = dynamicAnimatorActive
             self.buttonsLayout = buttonsLayout
+            
+            self.activityIndicatorStyle = activityIndicatorStyle
         }
         
         mutating func setkWindowHeight(_ kWindowHeight:CGFloat) {
@@ -481,9 +487,11 @@ open class SCLAlertView: UIViewController {
         
         txt.layer.masksToBounds = true
         txt.layer.borderWidth = 1.0
+        
         if title != nil {
             txt.placeholder = title!
         }
+        
         contentView.addSubview(txt)
         inputs.append(txt)
         return txt
@@ -532,6 +540,7 @@ open class SCLAlertView: UIViewController {
     fileprivate func addButton(_ title:String, backgroundColor:UIColor? = nil, textColor:UIColor? = nil, showTimeout:SCLButton.ShowTimeoutConfiguration? = nil)->SCLButton {
         // Update view height
         appearance.setkWindowHeight(appearance.kWindowHeight + appearance.kButtonHeight)
+        
         // Add button
         let btn = SCLButton()
         btn.layer.masksToBounds = true
@@ -586,17 +595,18 @@ open class SCLAlertView: UIViewController {
         guard let endKeyBoardFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.minY else {return}
         
         if tmpContentViewFrameOrigin == nil {
-        tmpContentViewFrameOrigin = self.contentView.frame.origin
+            tmpContentViewFrameOrigin = self.contentView.frame.origin
         }
         
         if tmpCircleViewFrameOrigin == nil {
-        tmpCircleViewFrameOrigin = self.circleBG.frame.origin
+            tmpCircleViewFrameOrigin = self.circleBG.frame.origin
         }
         
         var newContentViewFrameY = self.contentView.frame.maxY - endKeyBoardFrame
         if newContentViewFrameY < 0 {
             newContentViewFrameY = 0
         }
+        
         let newBallViewFrameY = self.circleBG.frame.origin.y - newContentViewFrameY
         self.contentView.frame.origin.y -= newContentViewFrameY
         self.circleBG.frame.origin.y = newBallViewFrameY
@@ -630,8 +640,6 @@ open class SCLAlertView: UIViewController {
     // showCustom(view, title, subTitle, UIColor, UIImage)
     @discardableResult
     open func showCustom(_ title: String, subTitle: String, color: UIColor, icon: UIImage, closeButtonTitle:String?=nil, timeout:SCLTimeoutConfiguration?=nil, colorStyle: UInt=SCLAlertViewStyle.success.defaultColorInt, colorTextButton: UInt=0xFFFFFF, circleIconImage: UIImage? = nil, animationStyle: SCLAnimationStyle = .topToBottom) -> SCLAlertViewResponder {
-        
-        
         var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
         
         color.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
@@ -711,6 +719,7 @@ open class SCLAlertView: UIViewController {
         var iconImage: UIImage?
         let colorInt = colorStyle ?? style.defaultColorInt
         viewColor = UIColorFromRGB(colorInt)
+        
         // Icon style
         switch style {
         case .success:
@@ -777,9 +786,10 @@ open class SCLAlertView: UIViewController {
         
         // Alert view colour and images
         circleView.backgroundColor = viewColor
+        
         // Spinner / icon
         if style == .wait {
-            let indicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+            let indicator = UIActivityIndicatorView(activityIndicatorStyle: appearance.activityIndicatorStyle)
             indicator.startAnimating()
             circleIconView = indicator
         }

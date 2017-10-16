@@ -58,7 +58,7 @@ class ViewController: UIViewController {
     @IBAction func showInfo(_ sender: AnyObject) {
         _ = SCLAlertView().showInfo(kInfoTitle, subTitle: kSubtitle)
     }
-
+    
 	@IBAction func showEdit(_ sender: AnyObject) {
         let appearance = SCLAlertView.SCLAppearance(showCloseButton: true)
         let alert = SCLAlertView(appearance: appearance)
@@ -69,6 +69,37 @@ class ViewController: UIViewController {
 		_ = alert.showEdit(kInfoTitle, subTitle:kSubtitle)
 	}
     
+    @IBAction func showWait(_ sender: AnyObject) {
+        let appearance = SCLAlertView.SCLAppearance(
+            showCloseButton: false
+        )
+        
+        let alert = SCLAlertView(appearance: appearance).showWait("Download", subTitle: "Processing...", closeButtonTitle: nil, timeout: nil, colorStyle: nil, colorTextButton: 0xFFFFFF, circleIconImage: nil, animationStyle: SCLAnimationStyle.topToBottom)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            alert.setSubTitle("Progress: 10%")
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                alert.setSubTitle("Progress: 30%")
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    alert.setSubTitle("Progress: 50%")
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        alert.setSubTitle("Progress: 70%")
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                            alert.setSubTitle("Progress: 90%")
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                                alert.close()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     
     @IBAction func showCustomSubview(_ sender: AnyObject) {
         // Create custom Appearance Configuration
