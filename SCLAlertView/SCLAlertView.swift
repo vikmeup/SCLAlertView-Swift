@@ -273,7 +273,6 @@ open class SCLAlertView: UIViewController {
     fileprivate var inputs = [UITextField]()
     fileprivate var input = [UITextView]()
     internal var buttons = [SCLButton]()
-    fileprivate var selfReference: SCLAlertView?
     
     public init(appearance: SCLAppearance) {
         self.appearance = appearance
@@ -705,7 +704,6 @@ open class SCLAlertView: UIViewController {
     // showTitle(view, title, subTitle, timeout, style)
     @discardableResult
     open func showTitle(_ title: String, subTitle: String, timeout: SCLTimeoutConfiguration?, completeText: String?, style: SCLAlertViewStyle, colorStyle: UInt?=0x000000, colorTextButton: UInt?=0xFFFFFF, circleIconImage: UIImage? = nil, animationStyle: SCLAnimationStyle = .topToBottom) -> SCLAlertViewResponder {
-        selfReference = self
         view.alpha = 0
         view.tag = uniqueTag
         view.accessibilityIdentifier = uniqueAccessibilityIdentifier
@@ -962,7 +960,6 @@ open class SCLAlertView: UIViewController {
                 }
                 
                 self.view.removeFromSuperview()
-                self.selfReference = nil
         })
     }
     
