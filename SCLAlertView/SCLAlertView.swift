@@ -157,7 +157,7 @@ open class SCLAlertView: UIViewController {
         let kTextViewdHeight: CGFloat
         let kButtonOffset: CGFloat
         let kButtonHeight: CGFloat
-		var circleBackgroundColor: UIColor
+		public var circleBackgroundColor: UIColor
         let contentViewColor: UIColor
         let contentViewBorderColor: UIColor
         let titleColor: UIColor
