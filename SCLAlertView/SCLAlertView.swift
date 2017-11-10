@@ -184,6 +184,10 @@ open class SCLAlertView: UIViewController {
         // Activity indicator
         var activityIndicatorStyle: UIActivityIndicatorViewStyle
         
+        fileprivate var titleYPosition: CGFloat {
+            return kCircleBackgroundHeight / 2.0 + kTitleTop
+        }
+        
         public init(kDefaultShadowOpacity: CGFloat = 0.7, kCircleBackgroundHeight: CGFloat = 62.0, kCircleTopPosition: CGFloat = 0.0, kCircleBackgroundTopPosition: CGFloat = 6.0, kCircleHeight: CGFloat = 56.0, kCircleIconHeight: CGFloat = 20.0, kTitleTop:CGFloat = 30.0, kTitleHeight:CGFloat = 25.0,  kWindowWidth: CGFloat = 240.0, kWindowHeight: CGFloat = 178.0,
           kTextHeight: CGFloat = 90.0, kTextFieldOffset: CGFloat = 10.0,  kTextFieldHeight: CGFloat = 45.0, kTextViewdHeight: CGFloat = 80.0,
           kButtonOffset: CGFloat = 10, kButtonHeight: CGFloat = 45.0, kTitleFont: UIFont = UIFont.systemFont(ofSize: 20), kTitleMinimumScaleFactor: CGFloat = 1.0,
@@ -342,8 +346,7 @@ open class SCLAlertView: UIViewController {
             labelTitle.minimumScaleFactor = appearance.kTitleMinimumScaleFactor
             labelTitle.adjustsFontSizeToFitWidth = true
         }
-        let titleY = appearance.kCircleBackgroundHeight / 2 + appearance.kTitleTop
-        labelTitle.frame = CGRect(x:12, y: titleY, width: appearance.kWindowWidth - 24, height:appearance.kTitleHeight)
+        labelTitle.frame = CGRect(x:12, y: appearance.titleYPosition, width: appearance.kWindowWidth - 24, height:appearance.kTitleHeight)
         // View text
         viewText.isEditable = false
         viewText.isSelectable = false
@@ -387,7 +390,7 @@ open class SCLAlertView: UIViewController {
         // computing the right size to use for the textView
         let maxHeight = sz.height - 100 // max overall height
         var consumedHeight = CGFloat(0)
-        consumedHeight += (titleActualHeight > 0 ? appearance.kTitleTop + titleActualHeight : defaultTopOffset)
+        consumedHeight += (titleActualHeight > 0 ? appearance.titleYPosition + titleActualHeight : defaultTopOffset)
         consumedHeight += 14
         
         if appearance.buttonsLayout == .vertical {
@@ -435,7 +438,7 @@ open class SCLAlertView: UIViewController {
         labelTitle.frame = labelTitle.frame.offsetBy(dx: 0, dy: titleOffset)
         
         // Subtitle
-        y = titleActualHeight > 0 ? appearance.kTitleTop + titleActualHeight + titleOffset : defaultTopOffset
+        y = titleActualHeight > 0 ? appearance.titleYPosition + titleActualHeight + titleOffset : defaultTopOffset
         viewText.frame = CGRect(x:hMargin, y:y, width: appearance.kWindowWidth - hMargin * 2, height:appearance.kTextHeight)
         viewText.frame = CGRect(x:hMargin, y:y, width: viewTextWidth, height:viewTextHeight)
         // Text fields
@@ -773,8 +776,7 @@ open class SCLAlertView: UIViewController {
         if !title.isEmpty {
             self.labelTitle.text = title
             let actualHeight = title.heightWithConstrainedWidth(width: appearance.kWindowWidth - 24, font: self.labelTitle.font)
-            let titleY = appearance.kCircleBackgroundHeight / 2 + appearance.kTitleTop
-            self.labelTitle.frame = CGRect(x:12, y:titleY, width: appearance.kWindowWidth - 24, height:actualHeight)
+            self.labelTitle.frame = CGRect(x:12, y: appearance.titleYPosition, width: appearance.kWindowWidth - 24, height:actualHeight)
         }
         
         // Subtitle
