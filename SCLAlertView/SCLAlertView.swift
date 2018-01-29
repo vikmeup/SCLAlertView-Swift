@@ -292,7 +292,10 @@ open class SCLAlertView: UIViewController {
     }
     
     override public init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        appearance = SCLAppearance()
+        if appearance == nil {
+            appearance = SCLAppearance()
+        }
+        
         super.init(nibName:nibNameOrNil, bundle:nibBundleOrNil)
     }
     
