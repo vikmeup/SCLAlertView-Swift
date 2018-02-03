@@ -176,7 +176,7 @@ class ViewController: UIViewController {
         let icon = UIImage(named:"custom_icon.png")
         let color = UIColor.orange
         
-        _ = alert.showCustom("Custom Color", subTitle: "Custom color", color: color, icon: icon!)
+        _ = alert.showCustom("Custom Color", subTitle: "Custom color", color: color, circleIconImage: icon!)
     }
 	
     @objc func firstButton() {
