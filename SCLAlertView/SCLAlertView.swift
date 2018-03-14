@@ -146,7 +146,6 @@ open class SCLAlertView: UIViewController {
         let kCircleBackgroundTopPosition: CGFloat
         let kCircleHeight: CGFloat
         let kCircleIconHeight: CGFloat
-        let kTitleTop:CGFloat
         let kTitleHeight:CGFloat
 	let kTitleMinimumScaleFactor: CGFloat
         let kWindowWidth: CGFloat
@@ -160,7 +159,10 @@ open class SCLAlertView: UIViewController {
         let contentViewBorderColor: UIColor
         let titleColor: UIColor
         let subTitleColor: UIColor
-        
+
+        // Margin
+        let kTitleTop: CGFloat
+
         // Fonts
         let kTitleFont: UIFont
         let kTextFont: UIFont
