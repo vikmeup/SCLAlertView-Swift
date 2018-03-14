@@ -184,7 +184,9 @@ class ViewController: UIViewController {
       kTitleFont: UIFont(name: "HelveticaNeue", size: 20)!,
       kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
       kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
-      shouldAutoDismiss: true
+      shouldAutoDismiss: true,
+      horizontalMargin: 30,
+      bottomMargin: 30
     )
     let alert = SCLAlertView(appearance: appearance)
     _ = alert.addButton("First", target:self, selector:#selector(ViewController.firstButton))
@@ -192,7 +194,7 @@ class ViewController: UIViewController {
     let icon = UIImage(named:"custom_icon.png")
     let color = UIColor.orange
     
-    _ = alert.showCustom("Custom Color", color: color, circleIconImage: icon!)
+    _ = alert.showCustom("Empty SubTitle Alert", subTitle: "This is an empty subTitle alertView with horizontal and bottom margin equals 30", color: color, circleIconImage: icon!)
 
   }
   
