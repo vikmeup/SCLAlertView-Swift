@@ -60,7 +60,10 @@ class ViewController: UIViewController {
     }
     
 	@IBAction func showEdit(_ sender: AnyObject) {
-        let appearance = SCLAlertView.SCLAppearance(showCloseButton: true)
+        let appearance = SCLAlertView.SCLAppearance(
+          kTextFieldHeight: 60,
+          showCloseButton: true
+        )
         let alert = SCLAlertView(appearance: appearance)
 		let txt = alert.addTextField("Enter your name")
         _ = alert.addButton("Show Name") {
