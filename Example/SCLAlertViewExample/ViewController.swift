@@ -179,7 +179,25 @@ class ViewController: UIViewController {
         _ = alert.showCustom("Custom Color", subTitle: "Custom color", color: color, circleIconImage: icon!)
     }
 	
-    @objc func firstButton() {
+  @IBAction func showEmptySubTitleAlert(_ sender: UIButton) {
+    let appearance = SCLAlertView.SCLAppearance(
+      kTitleFont: UIFont(name: "HelveticaNeue", size: 20)!,
+      kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
+      kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+      shouldAutoDismiss: true
+    )
+    let alert = SCLAlertView(appearance: appearance)
+    _ = alert.addButton("First", target:self, selector:#selector(ViewController.firstButton))
+    
+    let icon = UIImage(named:"custom_icon.png")
+    let color = UIColor.orange
+    
+    _ = alert.showCustom("Custom Color", color: color, circleIconImage: icon!)
+
+  }
+  
+  @objc func firstButton() {
 		print("First button tapped")
 	}
+  
 }
