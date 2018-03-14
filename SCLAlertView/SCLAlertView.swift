@@ -420,7 +420,8 @@ open class SCLAlertView: UIViewController {
             }
         }
         
-        let windowHeight = consumedHeight + viewTextHeight + vMargin
+        var windowHeight = consumedHeight + viewTextHeight
+        windowHeight += viewText.text.isEmpty ? 0 : vMargin // only viewText.text is not empty should have margin.
 
         // Set frames
         var x = (sz.width - appearance.kWindowWidth) / 2
@@ -441,7 +442,7 @@ open class SCLAlertView: UIViewController {
         viewText.frame = CGRect(x:appearance.horizontalMargin, y:y, width: viewTextWidth, height:viewTextHeight)
         // Text fields
         y += viewTextHeight
-        y += viewTextHeight == 0 ? 0 : vMargin
+        y += viewText.text.isEmpty ? 0 : vMargin // only viewText.text is not empty should have margin.
       
         for txt in inputs {
             txt.frame = CGRect(x:appearance.horizontalMargin, y:y, width:subViewsWidth, height:appearance.kTextFieldHeight)
