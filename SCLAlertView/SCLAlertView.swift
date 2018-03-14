@@ -159,7 +159,7 @@ open class SCLAlertView: UIViewController {
         let contentViewColor: UIColor
         let contentViewBorderColor: UIColor
         let titleColor: UIColor
-        let subtitleColor: UIColor
+        let subTitleColor: UIColor
         
         // Fonts
         let kTitleFont: UIFont
@@ -202,7 +202,7 @@ open class SCLAlertView: UIViewController {
             self.contentViewColor = contentViewColor
             self.contentViewBorderColor = contentViewBorderColor
             self.titleColor = titleColor
-            self.subtitleColor = subtitleColor
+            self.subTitleColor = subTitleColor
         
             self.kTitleFont = kTitleFont
             self.kTitleMinimumScaleFactor = kTitleMinimumScaleFactor
@@ -344,7 +344,7 @@ open class SCLAlertView: UIViewController {
         contentView.backgroundColor = appearance.contentViewColor
         viewText.backgroundColor = appearance.contentViewColor
         labelTitle.textColor = appearance.titleColor
-        viewText.textColor = appearance.subtitleColor
+        viewText.textColor = appearance.subTitleColor
         contentView.layer.borderColor = appearance.contentViewBorderColor.cgColor
         //Gesture Recognizer for tapping outside the textinput
         if appearance.disableTapGesture == false {
