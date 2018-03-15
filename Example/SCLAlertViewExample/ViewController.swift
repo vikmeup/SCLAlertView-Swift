@@ -183,13 +183,16 @@ class ViewController: UIViewController {
     }
 	
   @IBAction func showEmptySubTitleAlert(_ sender: UIButton) {
+    let margin = SCLAlertView.SCLAppearance.Margin(buttonSpacing: 30,
+                                                   bottom: 30,
+                                                   horizontal: 30)
+    
     let appearance = SCLAlertView.SCLAppearance(
       kTitleFont: UIFont(name: "HelveticaNeue", size: 20)!,
       kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
       kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
       shouldAutoDismiss: true,
-      horizontalMargin: 30,
-      bottomMargin: 30
+      margin: margin
     )
     let alert = SCLAlertView(appearance: appearance)
     _ = alert.addButton("First", target:self, selector:#selector(ViewController.firstButton))
