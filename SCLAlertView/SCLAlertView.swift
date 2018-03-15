@@ -160,10 +160,40 @@ open class SCLAlertView: UIViewController {
         let titleColor: UIColor
         let subTitleColor: UIColor
 
-        // Margin
-        let kTitleTop: CGFloat
-        let horizontalMargin: CGFloat // The subView's horizontal margin.
-        let bottomMargin: CGFloat // The last button's bottom margin aginst alertView's bottom
+        let margin: Margin
+        /// Margin for SCLAlertView.
+        public struct Margin {
+          //vertical
+          
+          /// The spacing between title's top and window's top.
+          public var titleTop: CGFloat
+          /// The spacing between textView/customView's bottom and first button's top.
+          public var textViewBottom: CGFloat
+          /// The spacing between buttons.
+          public var buttonSpacing: CGFloat
+          /// The spacing between textField.
+          public var textFieldSpacing: CGFloat
+          /// The last button's bottom margin against alertView's bottom
+          public var bottom: CGFloat
+          
+          //Horizontal
+          /// The subView's horizontal margin.
+          public var horizontal: CGFloat = 12
+        
+          public init(titleTop: CGFloat = 30,
+                      textViewBottom: CGFloat = 12,
+                      buttonSpacing: CGFloat = 10,
+                      textFieldSpacing: CGFloat = 15,
+                      bottom: CGFloat = 14,
+                      horizontal: CGFloat = 12) {
+            self.titleTop = titleTop
+            self.textViewBottom = textViewBottom
+            self.buttonSpacing = buttonSpacing
+            self.textFieldSpacing = textFieldSpacing
+            self.bottom = bottom
+            self.horizontal = horizontal
+          }
+        }
 
         // Fonts
         let kTitleFont: UIFont
@@ -187,14 +217,13 @@ open class SCLAlertView: UIViewController {
         // Activity indicator
         var activityIndicatorStyle: UIActivityIndicatorViewStyle
         
-      public init(kDefaultShadowOpacity: CGFloat = 0.7, kCircleTopPosition: CGFloat = 0.0, kCircleBackgroundTopPosition: CGFloat = 6.0, kCircleHeight: CGFloat = 56.0, kCircleIconHeight: CGFloat = 20.0, kTitleTop:CGFloat = 30.0, kTitleHeight:CGFloat = 25.0,  kWindowWidth: CGFloat = 240.0, kWindowHeight: CGFloat = 178.0, kTextHeight: CGFloat = 90.0, kTextFieldHeight: CGFloat = 30.0, kTextViewdHeight: CGFloat = 80.0, kButtonHeight: CGFloat = 35.0, kTitleFont: UIFont = UIFont.systemFont(ofSize: 20), kTitleMinimumScaleFactor: CGFloat = 1.0, kTextFont: UIFont = UIFont.systemFont(ofSize: 14), kButtonFont: UIFont = UIFont.boldSystemFont(ofSize: 14), showCloseButton: Bool = true, showCircularIcon: Bool = true, shouldAutoDismiss: Bool = true, contentViewCornerRadius: CGFloat = 5.0, fieldCornerRadius: CGFloat = 3.0, buttonCornerRadius: CGFloat = 3.0, hideWhenBackgroundViewIsTapped: Bool = false, circleBackgroundColor: UIColor = UIColor.white, contentViewColor: UIColor = UIColorFromRGB(0xFFFFFF), contentViewBorderColor: UIColor = UIColorFromRGB(0xCCCCCC), titleColor: UIColor = UIColorFromRGB(0x4D4D4D), subTitleColor: UIColor = UIColorFromRGB(0x4D4D4D), horizontalMargin: CGFloat = 12, bottomMargin: CGFloat = 14, dynamicAnimatorActive: Bool = false, disableTapGesture: Bool = false, buttonsLayout: SCLAlertButtonLayout = .vertical, activityIndicatorStyle: UIActivityIndicatorViewStyle = .white) {
+      public init(kDefaultShadowOpacity: CGFloat = 0.7, kCircleTopPosition: CGFloat = 0.0, kCircleBackgroundTopPosition: CGFloat = 6.0, kCircleHeight: CGFloat = 56.0, kCircleIconHeight: CGFloat = 20.0, kTitleHeight:CGFloat = 25.0,  kWindowWidth: CGFloat = 240.0, kWindowHeight: CGFloat = 178.0, kTextHeight: CGFloat = 90.0, kTextFieldHeight: CGFloat = 30.0, kTextViewdHeight: CGFloat = 80.0, kButtonHeight: CGFloat = 35.0, kTitleFont: UIFont = UIFont.systemFont(ofSize: 20), kTitleMinimumScaleFactor: CGFloat = 1.0, kTextFont: UIFont = UIFont.systemFont(ofSize: 14), kButtonFont: UIFont = UIFont.boldSystemFont(ofSize: 14), showCloseButton: Bool = true, showCircularIcon: Bool = true, shouldAutoDismiss: Bool = true, contentViewCornerRadius: CGFloat = 5.0, fieldCornerRadius: CGFloat = 3.0, buttonCornerRadius: CGFloat = 3.0, hideWhenBackgroundViewIsTapped: Bool = false, circleBackgroundColor: UIColor = UIColor.white, contentViewColor: UIColor = UIColorFromRGB(0xFFFFFF), contentViewBorderColor: UIColor = UIColorFromRGB(0xCCCCCC), titleColor: UIColor = UIColorFromRGB(0x4D4D4D), subTitleColor: UIColor = UIColorFromRGB(0x4D4D4D), margin: Margin = Margin(), dynamicAnimatorActive: Bool = false, disableTapGesture: Bool = false, buttonsLayout: SCLAlertButtonLayout = .vertical, activityIndicatorStyle: UIActivityIndicatorViewStyle = .white) {
             
             self.kDefaultShadowOpacity = kDefaultShadowOpacity
             self.kCircleTopPosition = kCircleTopPosition
             self.kCircleBackgroundTopPosition = kCircleBackgroundTopPosition
             self.kCircleHeight = kCircleHeight
             self.kCircleIconHeight = kCircleIconHeight
-            self.kTitleTop = kTitleTop
             self.kTitleHeight = kTitleHeight
             self.kWindowWidth = kWindowWidth
             self.kWindowHeight = kWindowHeight
@@ -208,9 +237,8 @@ open class SCLAlertView: UIViewController {
             self.titleColor = titleColor
             self.subTitleColor = subTitleColor
         
-            self.horizontalMargin = horizontalMargin
-            self.bottomMargin = bottomMargin
-
+            self.margin = margin
+        
             self.kTitleFont = kTitleFont
             self.kTitleMinimumScaleFactor = kTitleMinimumScaleFactor
             self.kTextFont = kTextFont
@@ -339,7 +367,7 @@ open class SCLAlertView: UIViewController {
             labelTitle.minimumScaleFactor = appearance.kTitleMinimumScaleFactor
             labelTitle.adjustsFontSizeToFitWidth = true
         }
-        labelTitle.frame = CGRect(x:appearance.horizontalMargin, y:appearance.kTitleTop, width: subViewsWidth, height:appearance.kTitleHeight)
+        labelTitle.frame = CGRect(x:appearance.margin.horizontal, y:appearance.margin.titleTop, width: subViewsWidth, height:appearance.kTitleHeight)
         // View text
         viewText.isEditable = false
         viewText.isSelectable = false
@@ -369,7 +397,6 @@ open class SCLAlertView: UIViewController {
         // Set background frame
         view.frame.size = sz
 
-        let vMargin: CGFloat = 12 //Vertical margin
         let defaultTopOffset: CGFloat = 32
 
         // get actual height of title text
@@ -383,11 +410,11 @@ open class SCLAlertView: UIViewController {
         // computing the right size to use for the textView
         let maxHeight = sz.height - 100 // max overall height
         var consumedHeight = CGFloat(0)
-        consumedHeight += (titleActualHeight > 0 ? appearance.kTitleTop + titleActualHeight : defaultTopOffset)
-        consumedHeight += appearance.bottomMargin
+        consumedHeight += (titleActualHeight > 0 ? appearance.margin.titleTop + titleActualHeight : defaultTopOffset)
+        consumedHeight += appearance.margin.bottom
         
-        let buttonMargin = CGFloat(10)
-        let textFieldMargin = CGFloat(15)
+        let buttonMargin = appearance.margin.buttonSpacing
+        let textFieldMargin = appearance.margin.textFieldSpacing
         if appearance.buttonsLayout == .vertical {
             consumedHeight += appearance.kButtonHeight * CGFloat(buttons.count)
             consumedHeight += buttonMargin * (CGFloat(buttons.count) - 1)
@@ -421,7 +448,7 @@ open class SCLAlertView: UIViewController {
         }
         
         var windowHeight = consumedHeight + viewTextHeight
-        windowHeight += viewText.text.isEmpty ? 0 : vMargin // only viewText.text is not empty should have margin.
+        windowHeight += viewText.text.isEmpty ? 0 : appearance.margin.textViewBottom // only viewText.text is not empty should have margin.
 
         // Set frames
         var x = (sz.width - appearance.kWindowWidth) / 2
@@ -438,24 +465,24 @@ open class SCLAlertView: UIViewController {
         labelTitle.frame = labelTitle.frame.offsetBy(dx: 0, dy: titleOffset)
         
         // Subtitle
-        y = titleActualHeight > 0 ? appearance.kTitleTop + titleActualHeight + titleOffset : defaultTopOffset
-        viewText.frame = CGRect(x:appearance.horizontalMargin, y:y, width: viewTextWidth, height:viewTextHeight)
+        y = titleActualHeight > 0 ? appearance.margin.titleTop + titleActualHeight + titleOffset : defaultTopOffset
+        viewText.frame = CGRect(x:appearance.margin.horizontal, y:y, width: viewTextWidth, height:viewTextHeight)
         // Text fields
         y += viewTextHeight
-        y += viewText.text.isEmpty ? 0 : vMargin // only viewText.text is not empty should have margin.
+        y += viewText.text.isEmpty ? 0 : appearance.margin.textViewBottom // only viewText.text is not empty should have margin.
       
         for txt in inputs {
-            txt.frame = CGRect(x:appearance.horizontalMargin, y:y, width:subViewsWidth, height:appearance.kTextFieldHeight)
+            txt.frame = CGRect(x:appearance.margin.horizontal, y:y, width:subViewsWidth, height:appearance.kTextFieldHeight)
             txt.layer.cornerRadius = appearance.fieldCornerRadius
             y += appearance.kTextFieldHeight + textFieldMargin
         }
         for txt in input {
-            txt.frame = CGRect(x:appearance.horizontalMargin, y:y, width:subViewsWidth, height:appearance.kTextViewdHeight - vMargin)
+            txt.frame = CGRect(x:appearance.margin.horizontal, y:y, width:subViewsWidth, height:appearance.kTextViewdHeight - appearance.margin.textViewBottom)
             //txt.layer.cornerRadius = fieldCornerRadius
             y += appearance.kTextViewdHeight
         }
         // Buttons
-        var buttonX = appearance.horizontalMargin
+        var buttonX = appearance.margin.horizontal
         switch appearance.buttonsLayout {
         case .vertical:
             for btn in buttons {
@@ -776,7 +803,7 @@ open class SCLAlertView: UIViewController {
         if !title.isEmpty {
             self.labelTitle.text = title
             let actualHeight = title.heightWithConstrainedWidth(width: subViewsWidth, font: self.labelTitle.font)
-            self.labelTitle.frame = CGRect(x:appearance.horizontalMargin, y:appearance.kTitleTop, width: subViewsWidth, height:actualHeight)
+            self.labelTitle.frame = CGRect(x:appearance.margin.horizontal, y:appearance.margin.titleTop, width: subViewsWidth, height:actualHeight)
         }
         
         // Subtitle
@@ -1351,6 +1378,6 @@ class SCLAlertViewStyleKit : NSObject {
 
 extension SCLAlertView {
   var subViewsWidth: CGFloat {
-    return appearance.kWindowWidth - 2 * appearance.horizontalMargin
+    return appearance.kWindowWidth - 2 * appearance.margin.horizontal
   }
 }
