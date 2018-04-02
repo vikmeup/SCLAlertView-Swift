@@ -161,6 +161,7 @@ open class SCLAlertView: UIViewController {
         let contentViewColor: UIColor
         let contentViewBorderColor: UIColor
         let titleColor: UIColor
+        let textFieldBorderColor: UIColor?
         
         // Fonts
         let kTitleFont: UIFont
@@ -194,7 +195,8 @@ open class SCLAlertView: UIViewController {
           kTextFont: UIFont = UIFont.systemFont(ofSize: 14), kButtonFont: UIFont = UIFont.boldSystemFont(ofSize: 14), showCloseButton: Bool = true, showCircularIcon: Bool = true,
           shouldAutoDismiss: Bool = true, contentViewCornerRadius: CGFloat = 5.0, fieldCornerRadius: CGFloat = 3.0, buttonCornerRadius: CGFloat = 3.0,
           hideWhenBackgroundViewIsTapped: Bool = false, circleBackgroundColor: UIColor = UIColor.white, contentViewColor: UIColor = UIColorFromRGB(0xFFFFFF),
-          contentViewBorderColor: UIColor = UIColorFromRGB(0xCCCCCC), titleColor: UIColor = UIColorFromRGB(0x4D4D4D), dynamicAnimatorActive: Bool = false,
+          contentViewBorderColor: UIColor = UIColorFromRGB(0xCCCCCC), titleColor: UIColor = UIColorFromRGB(0x4D4D4D),
+          textFieldBorderColor: UIColor? = nil, dynamicAnimatorActive: Bool = false,
           disableTapGesture: Bool = false, buttonsLayout: SCLAlertButtonLayout = .vertical, activityIndicatorStyle: UIActivityIndicatorViewStyle = .white) {
             
             self.kDefaultShadowOpacity = kDefaultShadowOpacity
@@ -217,6 +219,7 @@ open class SCLAlertView: UIViewController {
             self.contentViewColor = contentViewColor
             self.contentViewBorderColor = contentViewBorderColor
             self.titleColor = titleColor
+            self.textFieldBorderColor = textFieldBorderColor
             
             self.kTitleFont = kTitleFont
             self.kTitleMinimumScaleFactor = kTitleMinimumScaleFactor
@@ -827,7 +830,7 @@ open class SCLAlertView: UIViewController {
         circleIconView?.layer.masksToBounds = true
         
         for txt in inputs {
-            txt.layer.borderColor = viewColor.cgColor
+            txt.layer.borderColor = (appearance.textFieldBorderColor ?? viewColor).cgColor
         }
         
         for txt in input {
