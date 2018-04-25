@@ -42,10 +42,6 @@ class SCLAlertViewPropertiesTests: XCTestCase {
         XCTAssertTrue(alert.appearance.kCircleIconHeight == 20.0)
     }
     
-    func testSCLAlertViewTitleTop() {
-        XCTAssertTrue(alert.appearance.kTitleTop == 30.0)
-    }
-    
     func testSCLAlertViewTitleHeight() {
         XCTAssertTrue(alert.appearance.kTitleHeight == 40.0)
     }
