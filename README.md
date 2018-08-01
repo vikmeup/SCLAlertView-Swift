@@ -198,7 +198,8 @@ alert.showInfo("Login", subTitle: "", duration: 10)
 kButtonFont: UIFont                     
 buttonCornerRadius : CGFloat            
 showCloseButton: Bool                   
-kButtonHeight: CGFloat                  
+kButtonHeight: CGFloat //Now adds a height to the button
+kButtonBottomMargin: CGFloat //Bottom margin to button
 
 // Circle Image
 showCircularIcon: Bool
