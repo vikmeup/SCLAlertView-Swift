@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:updatePodToTag.command">
+   </FileRef>
+   <FileRef
+      location = "group:SCLAlertView.podspec">
+   </FileRef>
+   <FileRef
       location = "group:Example/SCLAlertViewExample.xcodeproj">
    </FileRef>
    <FileRef
