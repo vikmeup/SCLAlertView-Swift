@@ -761,7 +761,6 @@ open class SCLAlertView: UIViewController {
         baseView.frame = rv.bounds
         
         // Alert colour/icon
-        viewColor = UIColor()
         var iconImage: UIImage?
         let colorInt = colorStyle ?? style.defaultColorInt
         viewColor = UIColorFromRGB(colorInt)
