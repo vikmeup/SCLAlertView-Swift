@@ -27,7 +27,7 @@ class SCLAlertViewInitTests: XCTestCase {
     }
     
     func testViewResizingMask() {
-        XCTAssertTrue(alert.view.autoresizingMask == [UIViewAutoresizing.flexibleHeight, UIViewAutoresizing.flexibleWidth])
+        XCTAssertTrue(alert.view.autoresizingMask == [UIView.AutoresizingMask.flexibleHeight, UIView.AutoresizingMask.flexibleWidth])
     }
     
     func testViewBackgroundColor() {
