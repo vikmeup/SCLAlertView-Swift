@@ -391,6 +391,11 @@ open class SCLAlertView: UIViewController {
     
     override open func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+   
+	guard !keyboardHasBeenShown else {
+            return
+        }
+	    
         let rv = UIApplication.shared.keyWindow! as UIWindow
         let sz = rv.frame.size
         
