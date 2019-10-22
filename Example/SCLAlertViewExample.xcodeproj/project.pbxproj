@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		253330571A428E0700E8CD8E /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 253330561A428E0700E8CD8E /* Launch Screen.xib */; };
 		34C14E081C8F3BA500F4BF18 /* SCLAlertView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C14E031C8F3B6800F4BF18 /* SCLAlertView.framework */; };
 		34C14E091C8F3BA500F4BF18 /* SCLAlertView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 34C14E031C8F3B6800F4BF18 /* SCLAlertView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CEABB2471942AD9700FCB13C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABB2461942AD9700FCB13C /* AppDelegate.swift */; };
 		CEABB2501942AD9700FCB13C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEABB24F1942AD9700FCB13C /* Images.xcassets */; };
 		CEABB2671942AEA500FCB13C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABB2661942AEA500FCB13C /* ViewController.swift */; };
 		CEB569971942AE47009959CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEB569961942AE47009959CC /* Main.storyboard */; };
+		F5B41A1E235F456600DE0C87 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5B41A1D235F456600DE0C87 /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,7 +69,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		253330561A428E0700E8CD8E /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		34C14DFD1C8F3B6800F4BF18 /* SCLAlertView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SCLAlertView.xcodeproj; path = ../SCLAlertView.xcodeproj; sourceTree = "<group>"; };
 		CEABB2411942AD9700FCB13C /* SCLAlertViewExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SCLAlertViewExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEABB2451942AD9700FCB13C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -79,6 +78,7 @@
 		CEABB25A1942AD9700FCB13C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEABB2661942AEA500FCB13C /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		CEB569961942AE47009959CC /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		F5B41A1D235F456600DE0C87 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,7 +136,7 @@
 				CEB569961942AE47009959CC /* Main.storyboard */,
 				CEABB2461942AD9700FCB13C /* AppDelegate.swift */,
 				CEABB2661942AEA500FCB13C /* ViewController.swift */,
-				253330561A428E0700E8CD8E /* Launch Screen.xib */,
+				F5B41A1D235F456600DE0C87 /* Launch Screen.storyboard */,
 			);
 			path = SCLAlertViewExample;
 			sourceTree = "<group>";
@@ -276,7 +276,7 @@
 			files = (
 				CEB569971942AE47009959CC /* Main.storyboard in Resources */,
 				CEABB2501942AD9700FCB13C /* Images.xcassets in Resources */,
-				253330571A428E0700E8CD8E /* Launch Screen.xib in Resources */,
+				F5B41A1E235F456600DE0C87 /* Launch Screen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,10 +431,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = SCLAlertViewExample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "SIX-DAYS-LLC.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -448,10 +447,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = SCLAlertViewExample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "SIX-DAYS-LLC.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
