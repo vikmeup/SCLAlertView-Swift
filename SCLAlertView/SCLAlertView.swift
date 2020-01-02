@@ -813,6 +813,7 @@ open class SCLAlertView: UIViewController {
         // Spinner / icon
         if style == .wait {
             let indicator = UIActivityIndicatorView(style: appearance.activityIndicatorStyle)
+            indicator.color = .defaultBackgroundColor
             indicator.startAnimating()
             circleIconView = indicator
         }
