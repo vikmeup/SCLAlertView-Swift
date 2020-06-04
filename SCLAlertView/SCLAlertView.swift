@@ -831,7 +831,11 @@ open class SCLAlertView: UIViewController {
         
         // Done button
         if appearance.showCloseButton {
-            _ = addButton(completeText ?? "Done", target:self, selector:#selector(SCLAlertView.hideView))
+            
+            // Retrieves the "done" word translated using Apple's UIKit dictionary
+            let localizedDone = Bundle(for: UIApplication.self).localizedString(forKey: "Done", value: nil, table: nil)
+            
+            _ = addButton(completeText ?? localizedDone, target:self, selector:#selector(SCLAlertView.hideView))
         }
         
         //hidden/show circular view based on the ui option
