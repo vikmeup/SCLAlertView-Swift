@@ -782,20 +782,48 @@ open class SCLAlertView: UIViewController {
     }
 
     @discardableResult
-    open func showEdit(_ title: String, subTitle: String? = nil, closeButtonTitle: String? = nil, timeout: SCLTimeoutConfiguration? = nil, colorStyle: SCLAlertViewStyle? = .edit, colorTextButton: UIColor = .white, circleIconImage: UIImage? = nil, animationStyle: SCLAnimationStyle = .topToBottom) -> SCLAlertViewResponder {
+    open func showEdit(
+        _ title: String,
+        subTitle: String? = nil,
+        closeButtonTitle: String? = nil,
+        timeout: SCLTimeoutConfiguration? = nil,
+        colorStyle: SCLAlertViewStyle? = .edit,
+        colorTextButton: UIColor = .white,
+        circleIconImage: UIImage? = nil,
+        animationStyle: SCLAnimationStyle = .topToBottom) -> SCLAlertViewResponder {
         return showTitle(title, subTitle: subTitle, timeout: timeout, completeText: closeButtonTitle, style: .edit, colorStyle: colorStyle?.defaultColor, colorTextButton: colorTextButton, circleIconImage: circleIconImage, animationStyle: animationStyle)
     }
 
     // showTitle(view, title, subTitle, style)
     @discardableResult
-    open func showTitle(_ title: String, subTitle: String? = nil, style: SCLAlertViewStyle, closeButtonTitle: String? = nil, timeout: SCLTimeoutConfiguration? = nil, colorStyle: SCLAlertViewStyle? = .notice, colorTextButton: UIColor = .white, circleIconImage: UIImage? = nil, animationStyle: SCLAnimationStyle = .topToBottom) -> SCLAlertViewResponder {
+    open func showTitle(
+        _ title: String,
+        subTitle: String? = nil,
+        style: SCLAlertViewStyle,
+        closeButtonTitle: String? = nil,
+        timeout: SCLTimeoutConfiguration? = nil,
+        colorStyle: UIColor? = SCLAlertViewStyle.notice.defaultColor,
+        colorTextButton: UIColor = .white,
+        circleIconImage: UIImage? = nil,
+        animationStyle: SCLAnimationStyle = .topToBottom) -> SCLAlertViewResponder {
 
-        return showTitle(title, subTitle: subTitle, timeout: timeout, completeText: closeButtonTitle, style: style, colorStyle: colorStyle?.defaultColor, colorTextButton: colorTextButton, circleIconImage: circleIconImage, animationStyle: animationStyle)
+        return showTitle(title, subTitle: subTitle, timeout: timeout, completeText: closeButtonTitle, style: style, colorStyle: colorStyle, colorTextButton: colorTextButton, circleIconImage: circleIconImage, iconTintColor: UIColor.label, animationStyle: animationStyle)
     }
 
     // showTitle(view, title, subTitle, timeout, style)
     @discardableResult
-    open func showTitle(_ title: String, subTitle: String? = nil, timeout: SCLTimeoutConfiguration?, completeText: String?, style: SCLAlertViewStyle, colorStyle: UIColor? = .systemGroupedBackground, colorTextButton: UIColor? = .label, circleIconImage: UIImage? = nil, iconTintColor: UIColor? = .label, animationStyle: SCLAnimationStyle = .topToBottom) -> SCLAlertViewResponder {
+    open func showTitle(
+        _ title: String,
+        subTitle: String? = nil,
+        timeout: SCLTimeoutConfiguration?,
+        completeText: String?,
+        style: SCLAlertViewStyle,
+        colorStyle: UIColor? = .systemGroupedBackground,
+        colorTextButton: UIColor? = .label,
+        circleIconImage: UIImage? = nil,
+        iconTintColor: UIColor? = .label,
+        animationStyle: SCLAnimationStyle = .topToBottom) -> SCLAlertViewResponder {
+
         selfReference = self
         view.alpha = 0
         view.tag = uniqueTag
