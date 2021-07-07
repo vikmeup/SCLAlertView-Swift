@@ -147,14 +147,14 @@ open class SCLAlertView: UIViewController {
         let kCircleHeight: CGFloat
         let kCircleIconHeight: CGFloat
         let kTitleHeight:CGFloat
-	let kTitleMinimumScaleFactor: CGFloat
+    let kTitleMinimumScaleFactor: CGFloat
         let kWindowWidth: CGFloat
         var kWindowHeight: CGFloat
         var kTextHeight: CGFloat
         let kTextFieldHeight: CGFloat
         let kTextViewdHeight: CGFloat
         let kButtonHeight: CGFloat
-		let circleBackgroundColor: UIColor
+        let circleBackgroundColor: UIColor
         let contentViewColor: UIColor
         let contentViewBorderColor: UIColor
         let titleColor: UIColor
@@ -232,7 +232,7 @@ open class SCLAlertView: UIViewController {
             self.kTextFieldHeight = kTextFieldHeight
             self.kTextViewdHeight = kTextViewdHeight
             self.kButtonHeight = kButtonHeight
-			self.circleBackgroundColor = circleBackgroundColor
+            self.circleBackgroundColor = circleBackgroundColor
             self.contentViewColor = contentViewColor
             self.contentViewBorderColor = contentViewBorderColor
             self.titleColor = titleColor
@@ -313,6 +313,7 @@ open class SCLAlertView: UIViewController {
     fileprivate var inputs = [UITextField]()
     fileprivate var input = [UITextView]()
     internal var buttons = [SCLButton]()
+    fileprivate var onTextEditingFinished: ((String) -> Void)?
     fileprivate var selfReference: SCLAlertView?
     
     public init(appearance: SCLAppearance) {
@@ -398,7 +399,7 @@ open class SCLAlertView: UIViewController {
         guard !keyboardHasBeenShown else {
             return
         }
-	    
+        
         let rv = UIApplication.shared.keyWindow! as UIWindow
         let sz = rv.frame.size
         
@@ -529,7 +530,7 @@ open class SCLAlertView: UIViewController {
         }
     }
     
-    open func addTextField(_ title:String?=nil)->UITextField {
+    open func addTextField(_ title: String? = nil, onTextEditingFinished: ((String) -> Void)? = nil) -> UITextField {
         // Update view height
         appearance.setkWindowHeight(appearance.kWindowHeight + appearance.kTextFieldHeight)
         // Add text field
@@ -548,7 +549,19 @@ open class SCLAlertView: UIViewController {
         
         contentView.addSubview(txt)
         inputs.append(txt)
+        
+        if let onTextEditingFinished = onTextEditingFinished {
+            self.onTextEditingFinished = onTextEditingFinished
+            txt.addTarget(self, action: #selector(textFieldDidFinishEditing), for: .editingDidEnd)
+        }
+        
         return txt
+    }
+    
+    @objc open func textFieldDidFinishEditing(_ textField: UITextField) {
+        if let onTextEditingFinished = onTextEditingFinished, let text = textField.text {
+            onTextEditingFinished(text)
+        }
     }
     
     open func addTextView()->UITextView {
@@ -556,7 +569,7 @@ open class SCLAlertView: UIViewController {
         appearance.setkWindowHeight(appearance.kWindowHeight + appearance.kTextViewdHeight)
         // Add text view
         let txt = UITextView()
-        // No placeholder with UITextView but you can use KMPlaceholderTextView library 
+        // No placeholder with UITextView but you can use KMPlaceholderTextView library
         txt.font = appearance.kTextFont
         //txt.autocapitalizationType = UITextAutocapitalizationType.Words
         //txt.clearButtonMode = UITextFieldViewMode.WhileEditing
@@ -940,7 +953,7 @@ open class SCLAlertView: UIViewController {
         self.baseView.frame.origin = animationStartOrigin
         
         if self.appearance.dynamicAnimatorActive {
-            UIView.animate(withDuration: animationDuration, animations: { 
+            UIView.animate(withDuration: animationDuration, animations: {
                 self.view.alpha = 1.0
             })
             self.animate(item: self.baseView, center: rv.center)
