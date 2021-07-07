@@ -31,7 +31,7 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 // Pop Up Styles
 public enum SCLAlertViewStyle {
-    case success, error, notice, warning, info, edit, wait, question
+    case success, error, notice, warning, info, edit, wait, question, none
     
     public var defaultColorInt: UInt {
         switch self {
@@ -51,6 +51,8 @@ public enum SCLAlertViewStyle {
             return 0xD62DA5
         case .question:
             return 0x727375
+        case .none:
+            return 0x000000
         }
         
     }
@@ -804,6 +806,9 @@ open class SCLAlertView: UIViewController {
             
         case .question:
             iconImage = checkCircleIconImage(circleIconImage, defaultImage:SCLAlertViewStyleKit.imageOfQuestion)
+        
+        case .none:
+            iconImage = nil
         }
         
         // Title
