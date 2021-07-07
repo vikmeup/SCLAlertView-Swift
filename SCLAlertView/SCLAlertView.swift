@@ -76,7 +76,7 @@ open class SCLButton: UIButton {
     var target:AnyObject!
     var selector:Selector!
     var action:(()->Void)!
-    var customBackgroundColor:UIColor?
+    open var customBackgroundColor: UIColor?
     var customTextColor:UIColor?
     var initialTitle:String!
     var showTimeout:ShowTimeoutConfiguration?
