@@ -305,7 +305,7 @@ open class SCLAlertView: UIViewController {
     var contentView = UIView()
     var circleBG = UIView(frame:CGRect(x:0, y:0, width:kCircleHeightBackground, height:kCircleHeightBackground))
     var circleView = UIView()
-    var circleIconView : UIView?
+    open var circleIconView : UIView?
     var timeout: SCLTimeoutConfiguration?
     var showTimeoutTimer: Timer?
     var timeoutTimer: Timer?
