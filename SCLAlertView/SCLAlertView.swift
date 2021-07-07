@@ -313,6 +313,7 @@ open class SCLAlertView: UIViewController {
     fileprivate var inputs = [UITextField]()
     fileprivate var input = [UITextView]()
     internal var buttons = [SCLButton]()
+    fileprivate var onTextChanged: ((String) -> Void)?
     fileprivate var selfReference: SCLAlertView?
     
     public init(appearance: SCLAppearance) {
@@ -529,7 +530,7 @@ open class SCLAlertView: UIViewController {
         }
     }
     
-    open func addTextField(_ title:String?=nil)->UITextField {
+    open func addTextField(_ title: String? = nil, onTextChanged: ((String) -> Void)? = nil) -> UITextField {
         // Update view height
         appearance.setkWindowHeight(appearance.kWindowHeight + appearance.kTextFieldHeight)
         // Add text field
@@ -548,7 +549,19 @@ open class SCLAlertView: UIViewController {
         
         contentView.addSubview(txt)
         inputs.append(txt)
+        
+        if let onTextChanged = onTextChanged {
+            self.onTextChanged = onTextChanged
+            txt.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        }
+        
         return txt
+    }
+    
+    @objc open func textFieldDidChange(_ textField: UITextField) {
+        if let onTextChanged = onTextChanged, let text = textField.text {
+            onTextChanged(text)
+        }
     }
     
     open func addTextView()->UITextView {
