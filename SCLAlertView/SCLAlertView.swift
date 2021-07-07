@@ -31,7 +31,7 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 // Pop Up Styles
 public enum SCLAlertViewStyle {
-    case success, error, notice, warning, info, edit, wait, question
+    case success, error, notice, warning, info, edit, wait, question, none
     
     public var defaultColorInt: UInt {
         switch self {
@@ -51,6 +51,8 @@ public enum SCLAlertViewStyle {
             return 0xD62DA5
         case .question:
             return 0x727375
+        case .none:
+            return 0x000000
         }
         
     }
@@ -147,14 +149,14 @@ open class SCLAlertView: UIViewController {
         let kCircleHeight: CGFloat
         let kCircleIconHeight: CGFloat
         let kTitleHeight:CGFloat
-	let kTitleMinimumScaleFactor: CGFloat
+    let kTitleMinimumScaleFactor: CGFloat
         let kWindowWidth: CGFloat
         var kWindowHeight: CGFloat
         var kTextHeight: CGFloat
         let kTextFieldHeight: CGFloat
         let kTextViewdHeight: CGFloat
         let kButtonHeight: CGFloat
-		let circleBackgroundColor: UIColor
+        let circleBackgroundColor: UIColor
         let contentViewColor: UIColor
         let contentViewBorderColor: UIColor
         let titleColor: UIColor
@@ -232,7 +234,7 @@ open class SCLAlertView: UIViewController {
             self.kTextFieldHeight = kTextFieldHeight
             self.kTextViewdHeight = kTextViewdHeight
             self.kButtonHeight = kButtonHeight
-			self.circleBackgroundColor = circleBackgroundColor
+            self.circleBackgroundColor = circleBackgroundColor
             self.contentViewColor = contentViewColor
             self.contentViewBorderColor = contentViewBorderColor
             self.titleColor = titleColor
@@ -390,6 +392,8 @@ open class SCLAlertView: UIViewController {
             tapGesture.numberOfTapsRequired = 1
             self.view.addGestureRecognizer(tapGesture)
         }
+        view.isAccessibilityElement = true
+        view.accessibilityLabel = "alert"
     }
     
     override open func viewWillLayoutSubviews() {
@@ -398,7 +402,7 @@ open class SCLAlertView: UIViewController {
         guard !keyboardHasBeenShown else {
             return
         }
-	    
+        
         let rv = UIApplication.shared.keyWindow! as UIWindow
         let sz = rv.frame.size
         
@@ -556,7 +560,7 @@ open class SCLAlertView: UIViewController {
         appearance.setkWindowHeight(appearance.kWindowHeight + appearance.kTextViewdHeight)
         // Add text view
         let txt = UITextView()
-        // No placeholder with UITextView but you can use KMPlaceholderTextView library 
+        // No placeholder with UITextView but you can use KMPlaceholderTextView library
         txt.font = appearance.kTextFont
         //txt.autocapitalizationType = UITextAutocapitalizationType.Words
         //txt.clearButtonMode = UITextFieldViewMode.WhileEditing
@@ -610,6 +614,9 @@ open class SCLAlertView: UIViewController {
     }
     
     @objc func buttonTapped(_ btn:SCLButton) {
+        let localAccessibilityValue = "\(btn.title(for: .normal) ?? "The") button tapped"
+        self.accessibilityValue = localAccessibilityValue
+        UIAccessibility.post(notification: .announcement, argument: localAccessibilityValue)
         if btn.actionType == SCLActionType.closure {
             btn.action()
         } else if btn.actionType == SCLActionType.selector {
@@ -804,6 +811,9 @@ open class SCLAlertView: UIViewController {
             
         case .question:
             iconImage = checkCircleIconImage(circleIconImage, defaultImage:SCLAlertViewStyleKit.imageOfQuestion)
+        
+        case .none:
+            iconImage = nil
         }
         
         // Title
@@ -940,7 +950,7 @@ open class SCLAlertView: UIViewController {
         self.baseView.frame.origin = animationStartOrigin
         
         if self.appearance.dynamicAnimatorActive {
-            UIView.animate(withDuration: animationDuration, animations: { 
+            UIView.animate(withDuration: animationDuration, animations: {
                 self.view.alpha = 1.0
             })
             self.animate(item: self.baseView, center: rv.center)
