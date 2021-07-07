@@ -141,6 +141,7 @@ public typealias DismissBlock = () -> Void
 open class SCLAlertView: UIViewController {
     
     public struct SCLAppearance {
+        let iconTintColor: UIColor?
         let kDefaultShadowOpacity: CGFloat
         let kCircleTopPosition: CGFloat
         let kCircleBackgroundTopPosition: CGFloat
@@ -218,7 +219,7 @@ open class SCLAlertView: UIViewController {
         // Activity indicator
         var activityIndicatorStyle: UIActivityIndicatorView.Style
         
-        public init(kDefaultShadowOpacity: CGFloat = 0.7, kCircleTopPosition: CGFloat = 0.0, kCircleBackgroundTopPosition: CGFloat = 6.0, kCircleHeight: CGFloat = 56.0, kCircleIconHeight: CGFloat = 20.0, kTitleHeight:CGFloat = 25.0,  kWindowWidth: CGFloat = 240.0, kWindowHeight: CGFloat = 178.0, kTextHeight: CGFloat = 90.0, kTextFieldHeight: CGFloat = 30.0, kTextViewdHeight: CGFloat = 80.0, kButtonHeight: CGFloat = 35.0, kTitleFont: UIFont = UIFont.systemFont(ofSize: 20), kTitleMinimumScaleFactor: CGFloat = 1.0, kTextFont: UIFont = UIFont.systemFont(ofSize: 14), kButtonFont: UIFont = UIFont.boldSystemFont(ofSize: 14), showCloseButton: Bool = true, showCircularIcon: Bool = true, shouldAutoDismiss: Bool = true, contentViewCornerRadius: CGFloat = 5.0, fieldCornerRadius: CGFloat = 3.0, buttonCornerRadius: CGFloat = 3.0, hideWhenBackgroundViewIsTapped: Bool = false, circleBackgroundColor: UIColor = UIColor.white, contentViewColor: UIColor = UIColorFromRGB(0xFFFFFF), contentViewBorderColor: UIColor = UIColorFromRGB(0xCCCCCC), titleColor: UIColor = UIColorFromRGB(0x4D4D4D), subTitleColor: UIColor = UIColorFromRGB(0x4D4D4D), margin: Margin = Margin(), dynamicAnimatorActive: Bool = false, disableTapGesture: Bool = false, buttonsLayout: SCLAlertButtonLayout = .vertical, activityIndicatorStyle: UIActivityIndicatorView.Style = .white, textViewAlignment: NSTextAlignment = .center) {
+        public init(kDefaultShadowOpacity: CGFloat = 0.7, kCircleTopPosition: CGFloat = 0.0, kCircleBackgroundTopPosition: CGFloat = 6.0, kCircleHeight: CGFloat = 56.0, kCircleIconHeight: CGFloat = 20.0, kTitleHeight:CGFloat = 25.0,  kWindowWidth: CGFloat = 240.0, kWindowHeight: CGFloat = 178.0, kTextHeight: CGFloat = 90.0, kTextFieldHeight: CGFloat = 30.0, kTextViewdHeight: CGFloat = 80.0, kButtonHeight: CGFloat = 35.0, kTitleFont: UIFont = UIFont.systemFont(ofSize: 20), kTitleMinimumScaleFactor: CGFloat = 1.0, kTextFont: UIFont = UIFont.systemFont(ofSize: 14), kButtonFont: UIFont = UIFont.boldSystemFont(ofSize: 14), showCloseButton: Bool = true, showCircularIcon: Bool = true, shouldAutoDismiss: Bool = true, contentViewCornerRadius: CGFloat = 5.0, fieldCornerRadius: CGFloat = 3.0, buttonCornerRadius: CGFloat = 3.0, hideWhenBackgroundViewIsTapped: Bool = false, circleBackgroundColor: UIColor = UIColor.white, contentViewColor: UIColor = UIColorFromRGB(0xFFFFFF), contentViewBorderColor: UIColor = UIColorFromRGB(0xCCCCCC), titleColor: UIColor = UIColorFromRGB(0x4D4D4D), subTitleColor: UIColor = UIColorFromRGB(0x4D4D4D), margin: Margin = Margin(), dynamicAnimatorActive: Bool = false, disableTapGesture: Bool = false, buttonsLayout: SCLAlertButtonLayout = .vertical, activityIndicatorStyle: UIActivityIndicatorView.Style = .white, textViewAlignment: NSTextAlignment = .center, iconTintColor: UIColor = .purple) {
             
             self.kDefaultShadowOpacity = kDefaultShadowOpacity
             self.kCircleTopPosition = kCircleTopPosition
@@ -260,6 +261,7 @@ open class SCLAlertView: UIViewController {
             self.activityIndicatorStyle = activityIndicatorStyle
             
             self.textViewAlignment = textViewAlignment
+            self.iconTintColor = iconTintColor
         }
         
         mutating func setkWindowHeight(_ kWindowHeight:CGFloat) {
@@ -295,7 +297,6 @@ open class SCLAlertView: UIViewController {
     var viewColor = UIColor()
     
     // UI Options
-    open var iconTintColor: UIColor?
     open var customSubview : UIView?
     
     // Members declaration
@@ -852,7 +853,7 @@ open class SCLAlertView: UIViewController {
             circleIconView = indicator
         }
         else {
-            if let iconTintColor = iconTintColor {
+            if let iconTintColor = appearance.iconTintColor {
                 circleIconView = UIImageView(image: iconImage!.withRenderingMode(.alwaysTemplate))
                 circleIconView?.tintColor = iconTintColor
             }
