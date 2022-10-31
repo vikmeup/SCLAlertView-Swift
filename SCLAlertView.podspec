@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "SCLAlertView"
-  s.version      = "0.8.1"
+  s.version      = "0.8.2"
   s.summary      = "Beautiful Alert View. Written in Swift"
   s.homepage     = "https://github.com/vikmeup/SCLAlertView-Swift"
   s.screenshots  = "https://raw.githubusercontent.com/vikmeup/SCPopUpView/master/errorScreenshot.png", "https://raw.githubusercontent.com/vikmeup/SCPopUpView/master/successScreenshot.png"
@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.social_media_url   = "http://twitter.com/vikmeup"
   s.platform     = :ios
   s.ios.deployment_target = '8.0'
-  s.source       = { :git => "https://github.com/vikmeup/SCLAlertView-Swift.git", :tag => s.version }
+  s.source       = { :git => "https://github.com/ngunngun/SCLAlertView-Swift.git", :tag => s.version }
   s.source_files  = "SCLAlertView/*.{swift}"
   s.swift_version = '5.0'
   #s.framework  = "QuartzCore"
