@@ -77,7 +77,7 @@ class ViewController: UIViewController {
             showCloseButton: false
         )
         
-        let alert = SCLAlertView(appearance: appearance).showWait("Download", subTitle: "Processing...", closeButtonTitle: nil, timeout: nil, colorStyle: nil, colorTextButton: .label, circleIconImage: nil, animationStyle: SCLAnimationStyle.topToBottom)
+        let alert = SCLAlertView(appearance: appearance).showWait("Download", subTitle: "Processing...", closeButtonTitle: nil, timeout: nil, colorStyle: nil, colorTextButton: .white, circleIconImage: nil, animationStyle: SCLAnimationStyle.topToBottom)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             alert.setSubTitle("Progress: 10%")
