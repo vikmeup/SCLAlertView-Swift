@@ -401,7 +401,8 @@ open class SCLAlertView: UIViewController {
             return
         }
 	    
-        let rv = UIApplication.shared.windows.filter({$0.isKeyWindow}).first! as UIWindow
+        let rv = UIApplication.shared.windows.filter({$0.isKeyWindow}).first ??
+            UIApplication.shared.windows.first!
         let sz = rv.frame.size
         
         // Set background frame
@@ -754,7 +755,8 @@ open class SCLAlertView: UIViewController {
         view.alpha = 0
         view.tag = uniqueTag
         view.accessibilityIdentifier = uniqueAccessibilityIdentifier
-        let rv = UIApplication.shared.windows.filter({$0.isKeyWindow}).first! as UIWindow
+        let rv = UIApplication.shared.windows.filter({$0.isKeyWindow}).first ??
+            UIApplication.shared.windows.first!
         rv.addSubview(view)
         view.frame = rv.bounds
         baseView.frame = rv.bounds
@@ -873,7 +875,8 @@ open class SCLAlertView: UIViewController {
     // Show animation in the alert view
     fileprivate func showAnimation(_ animationStyle: SCLAnimationStyle = .topToBottom, animationStartOffset: CGFloat = -400.0, boundingAnimationOffset: CGFloat = 15.0, animationDuration: TimeInterval = 0.2) {
         
-        let rv = UIApplication.shared.windows.filter({$0.isKeyWindow}).first! as UIWindow
+        let rv = UIApplication.shared.windows.filter({$0.isKeyWindow}).first ??
+            UIApplication.shared.windows.first!
         var animationStartOrigin = self.baseView.frame.origin
         var animationCenter : CGPoint = rv.center
         
@@ -902,16 +905,29 @@ open class SCLAlertView: UIViewController {
 
         self.baseView.frame.origin = animationStartOrigin
         
+        // When people call SCLAlertView from viewDidLoad of their root UIViewController
+        // on the app start we many end up with a non-key window and later our view will be covered
+        // by the view controller's view.
+        // The best we can do is to bring our view to front later.
+        let bringViewToFront = !rv.isKeyWindow
+        
         if self.appearance.dynamicAnimatorActive {
             UIView.animate(withDuration: animationDuration, animations: { 
                 self.view.alpha = 1.0
-            })
+            }) { _ in
+                if bringViewToFront {
+                    rv.bringSubviewToFront(self.view)
+                }
+            }
             self.animate(item: self.baseView, center: rv.center)
         } else {
             UIView.animate(withDuration: animationDuration, animations: {
                 self.view.alpha = 1.0
                  self.baseView.center = animationCenter
                 }, completion: { finished in
+                    if bringViewToFront {
+                        rv.bringSubviewToFront(self.view)
+                    }
                     UIView.animate(withDuration: animationDuration, animations: {
                         self.view.alpha = 1.0
                         self.baseView.center = rv.center
