@@ -27,11 +27,11 @@ class SCLAlertViewPropertiesTests: XCTestCase {
     }
     
     func testSCLAlertViewCircleTopPosition() {
-        XCTAssertTrue(alert.appearance.kCircleTopPosition == -12.0)
+        XCTAssertTrue(alert.appearance.kCircleTopPosition == 0.0)
     }
     
     func testSCLAlertViewBackgroundTopPosition() {
-        XCTAssertTrue(alert.appearance.kCircleBackgroundTopPosition == -15.0)
+        XCTAssertTrue(alert.appearance.kCircleBackgroundTopPosition == 6.0)
     }
     
     func testSCLAlertViewCircleHeight() {
@@ -43,7 +43,7 @@ class SCLAlertViewPropertiesTests: XCTestCase {
     }
     
     func testSCLAlertViewTitleHeight() {
-        XCTAssertTrue(alert.appearance.kTitleHeight == 40.0)
+        XCTAssertTrue(alert.appearance.kTitleHeight == 25.0)
     }
     
     func testSCLAlertViewWindowWidth() {
@@ -59,11 +59,11 @@ class SCLAlertViewPropertiesTests: XCTestCase {
     }
     
     func testSCLAlertViewTextFieldHeight() {
-        XCTAssertTrue(alert.appearance.kTextFieldHeight == 45.0)
+        XCTAssertTrue(alert.appearance.kTextFieldHeight == 30.0)
     }
     
     func testSCLAlertViewTextButtonHeight() {
-        XCTAssertTrue(alert.appearance.kButtonHeight == 45.0)
+        XCTAssertTrue(alert.appearance.kButtonHeight == 35.0)
     }
     
     func testSCLAlertViewTitleFont() {

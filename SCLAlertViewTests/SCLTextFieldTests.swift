@@ -26,7 +26,7 @@ class SCLTextFieldTests: XCTestCase {
         let textfield = alert.addTextField("testTextField")
         XCTAssertTrue(textfield.isKind(of: UITextField.self))
         XCTAssertTrue(textfield.borderStyle == UITextField.BorderStyle.roundedRect)
-        XCTAssertTrue(textfield.font == UIFont(name: "HelveticaNeue", size: 14))
+        XCTAssertTrue(textfield.font == UIFont.systemFont(ofSize: 14))
         XCTAssertTrue(textfield.autocapitalizationType == UITextAutocapitalizationType.words)
         XCTAssertTrue(textfield.clearButtonMode == UITextField.ViewMode.whileEditing)
         XCTAssertTrue(textfield.layer.masksToBounds == true)
