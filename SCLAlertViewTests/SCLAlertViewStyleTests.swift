@@ -22,38 +22,66 @@ class SCLAlertViewStyleTests: XCTestCase {
     }
     
     func testSCLAlertViewStyleColorSuccess() {
-        let success = SCLAlertViewStyle.success
-        XCTAssertTrue(success.defaultColorInt == 0x22B573)
+        let style = SCLAlertViewStyle.success
+        XCTAssertTrue(style.defaultColor == UIColorFromRGB(0x22B573))
     }
     
     func testSCLAlertViewStyleColorError() {
-        let success = SCLAlertViewStyle.error
-        XCTAssertTrue(success.defaultColorInt == 0xC1272D)
+        let style = SCLAlertViewStyle.error
+        XCTAssertEqual(
+            style.defaultColor.resolvedColor(with: UITraitCollection(userInterfaceStyle: .dark)),
+            .red
+        )
+        XCTAssertEqual(
+            style.defaultColor.resolvedColor(with: UITraitCollection(userInterfaceStyle: .light)),
+            UIColorFromRGB(0xC1272D)
+        )
     }
     
     func testSCLAlertViewStyleColorNotice() {
-        let success = SCLAlertViewStyle.notice
-        XCTAssertTrue(success.defaultColorInt == 0x727375)
+        let style = SCLAlertViewStyle.notice
+        XCTAssertEqual(
+            style.defaultColor.resolvedColor(with: UITraitCollection(userInterfaceStyle: .dark)),
+            UIColorFromRGB(0xC6C6C6)
+        )
+        XCTAssertEqual(
+            style.defaultColor.resolvedColor(with: UITraitCollection(userInterfaceStyle: .light)),
+            UIColorFromRGB(0x727375)
+        )
     }
     
     func testSCLAlertViewStyleColorWarning() {
-        let success = SCLAlertViewStyle.warning
-        XCTAssertTrue(success.defaultColorInt == 0xFFD110)
+        let style = SCLAlertViewStyle.warning
+        XCTAssertTrue(style.defaultColor == UIColorFromRGB(0xFFD110))
     }
     
     func testSCLAlertViewStyleColorInfo() {
-        let success = SCLAlertViewStyle.info
-        XCTAssertTrue(success.defaultColorInt == 0x2866BF)
+        let style = SCLAlertViewStyle.info
+        XCTAssertEqual(
+            style.defaultColor.resolvedColor(with: UITraitCollection(userInterfaceStyle: .dark)),
+            UIColorFromRGB(0x6ABCE7)
+        )
+        XCTAssertEqual(
+            style.defaultColor.resolvedColor(with: UITraitCollection(userInterfaceStyle: .light)),
+            UIColorFromRGB(0x2866BF)
+        )
     }
     
     func testSCLAlertViewStyleColorEdit() {
-        let success = SCLAlertViewStyle.edit
-        XCTAssertTrue(success.defaultColorInt == 0xA429FF)
+        let style = SCLAlertViewStyle.edit
+        XCTAssertEqual(
+            style.defaultColor.resolvedColor(with: UITraitCollection(userInterfaceStyle: .dark)),
+            UIColorFromRGB(0xD194FF)
+        )
+        XCTAssertEqual(
+            style.defaultColor.resolvedColor(with: UITraitCollection(userInterfaceStyle: .light)),
+            UIColorFromRGB(0xA429FF)
+        )
     }
     
     func testSCLAlertViewStyleColorWait() {
-        let success = SCLAlertViewStyle.wait
-        XCTAssertTrue(success.defaultColorInt == 0xD62DA5)
+        let style = SCLAlertViewStyle.wait
+        XCTAssertTrue(style.defaultColor == UIColorFromRGB(0xD62DA5))
     }
     
     func testSCLButtonTypeOnCreate() {
@@ -61,4 +89,12 @@ class SCLAlertViewStyleTests: XCTestCase {
         XCTAssertTrue(button.actionType == SCLActionType.none)
     }
  
+}
+
+fileprivate extension UIColor {
+    convenience init(light: UIColor, dark: UIColor) {
+        self.init(dynamicProvider: { traitCollection in
+            return traitCollection.userInterfaceStyle == .dark ? dark : light
+        })
+    }
 }

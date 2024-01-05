@@ -33,7 +33,7 @@ class SCLButtonTests: XCTestCase {
         let button = alert.buttons[0] 
         XCTAssertTrue(button.layer.masksToBounds == true)
         XCTAssertTrue(button.titleLabel?.text == "testButtonTitle")
-        XCTAssertTrue(button.titleLabel?.font == UIFont(name:"HelveticaNeue-Bold", size: 14))
+        XCTAssertTrue(button.titleLabel?.font == UIFont.boldSystemFont(ofSize: 14))
     }
     
     func testButtonAddedToAlert() {
